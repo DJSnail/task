@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="/static/admin/css/search.css?v=<?=$version?>">
+<div class="search-box row">
+	<div class="col-xs-8">
+		<div class="btn-group pull-left" role="group" aria-label="...">
+			<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus-sign "></span> 新增机构</button>
+		</div>
+	</div>
+	<div class="col-xs-4">
+        <form class="form-horizontal" method="post" id="_CustomizedQueryForm" role="form" action="javascript:void(0);">
+			<div class="col-lg-12 pull-right">
+			    <div class="input-group input-sm">
+                    <input type="text" class="form-control input-sm" id="name" name="name|like" placeholder="机构名称">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default input-sm" type="button" id="_CustomizedQueryFormSubmit">
+                            <span class="glyphicon glyphicon-search"></span>搜索
+                        </button>
+                    </span>
+			    </div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</form>
+	</div>
+</div>
+
+<script src="/static/admin/bootstrap-3.3.5-dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#pg').hide();
+	});
+	
+	$("#add").on('click',function(){
+		window.parent.openTab('新增-机构', '/admin/organization/add');
+	});
+	
+	function tabEditAction(id){
+		window.parent.openTab('修改-机构', '/admin/organization/edit?id='+id);
+	}
+	
+</script>

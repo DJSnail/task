@@ -1,0 +1,196 @@
+<?php $this->load->view('web/common/header_height.html');?>
+
+<?php
+	$list=$requirement_list['data']['items'];
+?>
+
+<div class="floor_descr">
+    <div class="wrap">
+        <div class="descr">
+            <h2>专利技术</h2>
+            <h3>围绕传统产业转型和战略性新兴产业发展，面向战略决策，提供政策与技术发展态势监测、市场分析与投资咨询、前沿技术趋势预见等服务，为用户在市场拓展、技术引进、技术研发决策提供帮助。提供三类情报调研服务：产业细分领域前沿技术研究；产业细分领域市场分析；产业细分领域态势监测。</h3>
+            <div class="btn_link"><a href="/requirement/apply" target="_blank">申请技术成果转化&gt;&gt;</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="floor_content">
+    <div class="wrap clearfix">
+        <div class="title_content box_sizing">
+            <ul class="clearfix">
+                <li class="active"><a href="/requirement">专利技术</a></li>
+                <li><a href="/project" >项目合作</a></li>
+                <li><a href="/expert">专家咨询</a></li>
+                <li class="search"><input type="text" value="<?php echo $search_filter ?>"></li>
+            </ul>
+            <button type="button" id="subscribe_btn">+订阅</button>
+        </div>
+        <div class="left_content">
+            <div class="list_group">
+                <h2>专利分类</h2>
+                <ul id='category-filter'>
+                    <?php $i=0;foreach($filter_list['category_no'] as $val):?>
+                    <?php if($i < 5): ?>
+                    <li class="clearfix">
+                        <input type="checkbox" <?php if(in_array($val,$category_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php else:?>
+                    <li class="clearfix" style="display:none;">
+                        <input type="checkbox" <?php if(in_array($val,$category_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php endif;?>
+                    <?php $i++;endforeach;?>
+                </ul>
+                <?php if(count($filter_list['category_no']) > 5): ?>
+                <a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+                <?php endif;?>
+            </div>
+            <div class="list_group">
+                <h2>申请人</h2>
+                <ul id="user-filter">
+                    <?php $i=0;foreach($filter_list['apply_user'] as $val):?>
+                    <?php if($i < 5): ?>
+                    <li class="clearfix">
+                        <input type="checkbox" <?php if(in_array($val,$user_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php else:?>
+                    <li class="clearfix" style="display:none;">
+                        <input type="checkbox" <?php if(in_array($val,$user_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php endif;?>
+                    <?php $i++;endforeach;?>
+                </ul>
+                <?php if(count($filter_list['apply_user']) > 5): ?>
+                <a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+                <?php endif;?>
+            </div>
+            <div class="list_group">
+                <h2>申请日期</h2>
+                <ul id="time-filter">
+                    <?php $i=0;foreach($filter_list['apply_time'] as $val):?>
+                    <?php if($i < 5): ?>
+                    <li class="clearfix">
+                        <input type="checkbox" <?php if(in_array($val,$time_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php else:?>
+                    <li class="clearfix" style="display:none;">
+                        <input type="checkbox" <?php if(in_array($val,$time_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+                    </li>
+                    <?php endif;?>
+                    <?php $i++;endforeach;?>
+                </ul>
+                <?php if(count($filter_list['apply_time']) > 5): ?>
+                <a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+                <?php endif;?>
+            </div>
+        </div>
+        <div class="right_content">
+            <ul>
+                <?php foreach($list as $k=>$val):?>
+
+                <li class="clearfix">
+                    <div class="item_info">
+                        <a target="_blank" href="/requirement/detail?apply_no=<?=$val['apply_no']?>">
+                            <h2><?=$val['title_en']?></h2>
+                            <h3><?=strip_tags($val['abstract_en'])?></h3>
+                        </a>
+                        <div class="clearfix">
+                            <div class="float_left"><h4>主分类号：</h4><p><?=$val['category_no']?></p></div>
+                            <div class="float_left"><h4>申请日期：</h4><p><?=date('Y-m-d',$val['apply_time'])?></p></div>
+                            <div class="float_left"><h4>申请人：</h4><p><?=$val['apply_user']?></p></div>
+                        </div>
+                    </div>
+                </li>
+
+                <?php endforeach;?>
+            </ul>
+            <?=$pagestring?>
+        </div>
+    </div>
+</div>
+
+<div id="subscribe_module" class="snail_module" data-status="hide">
+    <input type="hidden" id="subscribe_type" value="<?php echo $subscribe_type?>">
+    <div class="snail_module_panel snail_subscribe_panel">
+        <div class="snail_module_head"><h2>订阅推送</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="step_one">
+                <h4>请输入关键词，比如：“发电”、“秸秆”，</h4>
+                <h4>如不输入关键词，则默认订阅该板块全部更新</h4>
+                <ul class="new_key">
+                    <li class="clearfix">
+                        <div class="key_input"><input type="text" placeholder="请输入关键字"></div>
+                        <span class="add">+</span>
+                    </li>
+                </ul>
+                <h5>已订阅关键词（最多订阅6个关键词）</h5>
+                <ul class="past_key clearfix">
+                    <?php foreach($subscribe as $s):?>
+                    <li><p title="<?php echo $s?>"><?php echo $s?></p><span class="del">&times;</span></li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <div class="step_two" style="display: none;">
+                <div class="QRcode"></div>
+                <h6>微信扫描<span class="showy">二维码</span>完成订阅关键词：
+                    <span id="sub_word"></span>
+                </h6>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" class="next">下一步</button>
+            <button type="button" class="prev" style="display: none;">上一步</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/form.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#category-filter input').click(function(){
+            jump_page(1);
+        });
+        $('#user-filter input').click(function(){
+            jump_page(1);
+        });
+        $('#time-filter input').click(function(){
+            jump_page(1);
+        });
+        $('.snail_page a').click(function(e){
+            e.preventDefault();
+            jump_page(parseInt($(this).attr('data-ci-pagination-page')));
+        });
+        $('.search input').keyup(function(e){
+            if (window.event)//如果window.event对象存在，就以此事件对象为准
+                e = window.event;
+            var code = e.charCode || e.keyCode;
+            if (code == 13) {
+                jump_page(1);
+            }
+        });
+        var jump_page = function(page){
+            var category=new Array(),user=new Array(),time=new Array();
+            $('#category-filter input:checked').each(function(){
+                category.push($(this).next().text());
+            });
+            $('#user-filter input:checked').each(function(){
+                user.push($(this).next().text());
+            });
+            $('#time-filter input:checked').each(function(){
+                time.push($(this).next().text());
+            });
+            var search = $('.search input').val();
+            $.form('/requirement',
+                    {
+                        'category_no':category.join(','),
+                        'apply_user':user.join(','),
+                        'apply_time':time.join(','),
+                        'page':page,
+                        'search':search
+                    },
+                    'POST').submit();
+        }
+    });
+</script>

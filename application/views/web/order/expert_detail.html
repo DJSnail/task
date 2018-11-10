@@ -1,0 +1,44 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head"><h2>联系专家详情</h2></div>
+		<div class="order_details">
+			<ul class="order_details_body">
+				<li>
+					<h3>联系专家信息</h3>
+					<ul class="order_details_body_item">
+						<li><p>申请编号：</p><p><?php echo $report["report_no"] ?></p></li>
+						<li><p>专家姓名：</p><p><?php echo $report["name"] ?></p></li>
+						<li><p>专家单位：</p><p><?php echo $report["company"] ?></p></li>
+						<li><p>研究领域：</p><p><?php echo $report["domain"] ?></p></li>
+						<li><p>专家职务：</p><p><?php echo $report["job"] ?></p></li>
+						<li><p>专家职称：</p><p><?php echo $report["title"] ?></p></li>
+					</ul>
+				</li>
+				<li>
+					<h3>主要联系人</h3>
+					<ul class="order_details_body_item">
+						<li><p>姓名：</p><p><?php echo $report["username"] ?></p></li>
+						<li><p>单位：</p><p><?php echo $report["company"] ?></p></li>
+						<li><p>手机：</p><p><?php echo $report["phone"] ?></p></li>
+						<li><p>邮箱：</p><p><?php echo $report["email"] ?></p></li>
+					</ul>
+				</li>
+				<li>
+					<h3>状态</h3>
+					<ul class="order_details_body_item">
+						<li><p>提交日期：</p><p><?php echo $report["add_time"] ?></p></li>
+						<li><p>处理日期：</p><p><?php echo $report["edit_time"] ?></p></li>
+						<!-- class: running（处理中）／completed（已完成）／reject（已驳回） -->
+						<li><p>处理状态：</p><p class=""><?php echo $report["status"] ?></p></li>
+						<li><p>处理人：</p><p><?php echo $report["op_username"] ?></p></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>

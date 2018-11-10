@@ -1,0 +1,30 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>专利技术</h1>
+		<a onclick="window.history.back();" class="go_back">&lt;&nbsp;返回</a>
+	</header>
+	<article class="main_wrap">
+		<article class="detail_title">
+			<h2><?php echo $data["title_en"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $data["public_time"]?></span>
+				<span class="label1">专利技术</span>
+				<span class="label2"><?php echo $data["public_no"]?></span>
+			</div>
+		</article>
+		<article class="project_detail">
+			<section class="project_info">
+				<h3>IPC:</h3>
+				<p><?php echo ($data["ipc"])?></p>
+				<h3>申请人:</h3>
+				<p><?php echo ($data["apply_user"])?></p>
+				<h3>申请国别:</h3>
+				<p><?php echo ($data["apply_country"])?></p>
+				<h3>摘要（原文）：</h3>
+				<p><?php echo ($data["abstract_en"])?></p>
+				<h3>摘要（译文）：</h3>
+				<p><?php echo ($data["abstract_cn"])?></p>
+			</section>
+		</article>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

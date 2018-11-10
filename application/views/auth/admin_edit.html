@@ -1,0 +1,83 @@
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<div class="row">
+    <div class="col-lg-12">
+    	<div class="container-fluid">
+			<div class="info-center">
+				<div class="page-header">
+					<div class="pull-left">
+						<h4><?=$pageTitle?></h4>
+					</div>
+					<div class="pull-right" style="margin-top: 15px;">
+		                <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+		            </div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- 功能区 -->
+<div class="row">
+	<div class="col-md-12 btn-area">
+		<div class="btn-group pull-left" role="group" aria-label="...">
+			
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel-body">
+		    <form class="form-horizontal" name="form-edit">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="">登录账号</label>
+                    <div class="col-sm-3">
+					   <input type="text"  class="form-control input-sm" placeholder="" id="username" name="username" value="<?=$admin_info['username']?>" />
+                    </div>
+                    <div class="col-sm-6">
+					    <font color="red">*</font>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="">昵称</label>
+                    <div class="col-sm-3">
+					   <input type="text"  class="form-control input-sm" placeholder="" id="nickname" name="nickname" value="<?=$admin_info['nickname']?>"/>
+                    </div>
+                    <div class="col-sm-6">
+					    <font color="red">*</font>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="col-sm-3 control-label" for="xhs_category_ids">选择角色</label>
+                    <div class="col-sm-3">
+                    	 <select class="form-control input-sm" id="role_id" name="role_id">
+						    <option value="-9">选择角色</option>
+		                    <?php foreach($role as $kk=>$f): ?>
+				                <option value="<?=$kk?>" <?php if($kk==$admin_info['role_id']):?> selected <?php endif;?>><?=$f?></option>
+	        				<?php endforeach; ?>
+        				</select>
+                    </div>
+                    <div class="col-sm-6">
+					    <font color="red">*</font>
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" value="<?=$admin_info['id']?>">
+                <div class="modal-footer" style="text-align:center">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                <button type="button" class="btn btn-primary" id="submit_button">提交</button>
+	            </div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+
+		$('#submit_button').on('click',function(){
+			if(!confirm('保存设置，请确认')) return false;
+			var data = $('form[name=form-edit]').serialize();
+			ajaxRequest({'data':data},'/auth/admin/save_admin','submit_button','POST',0);
+		});
+	});
+</script>

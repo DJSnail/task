@@ -1,0 +1,201 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<?php
+	$list=$project_list['data']['items'];
+?>
+
+<div class="floor_descr">
+	<div class="wrap">
+		<div class="descr">
+			<h2>项目合作</h2>
+			<h3>提供生物质相关科技成果信息及相关投资信息；为成果方和投资方提供对接的平台，提供对接的服务。采集中科院有生物质相关研究的研究所提交可转移转化的成果信息，相关企业也可以在网上注册使用平台，邀请科技金融公司加入平台，为成果转移转化搭建信息交流的平台，提供信息对接项目。</h3>
+			<div class="btn_link "><a href="/project/apply" target="_blank">申请项目合作&gt;&gt;</a></div>
+		</div>
+	</div>
+</div>
+
+<div class="floor_content">
+	<div class="wrap clearfix">
+		<div class="title_content box_sizing">
+			<ul class="clearfix">
+				<li><a href="/requirement" >专利技术</a></li>
+				<li class="active"><a href="/project" >项目合作</a></li>
+				<li><a href="/expert">专家咨询</a></li>
+				<li class="search"><input type="text" value="<?php echo $search_filter ?>"></li>
+			</ul>
+			<button type="button" id="subscribe_btn">+订阅</button>
+		</div>
+		<div class="left_content">
+			<div class="list_group">
+				<h2>项目分类</h2>
+				<ul id='type-filter'>
+					<?php $i=0;foreach($filter_list['type'] as $val):?>
+					<?php if($i < 5): ?>
+					<li class="clearfix">
+						<input type="checkbox" <?php if(in_array($val,$type_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php else:?>
+					<li class="clearfix" style="display:none;">
+						<input type="checkbox" <?php if(in_array($val,$type_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['type']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+			<div class="list_group">
+				<h2>委托单位</h2>
+				<ul id='company-filter'>
+					<?php $i=0;foreach($filter_list['company'] as $val):?>
+					<?php if($i < 5): ?>
+					<li class="clearfix">
+						<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php else:?>
+					<li class="clearfix" style="display:none;">
+						<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['company']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+			<div class="list_group">
+				<h2>项目金额</h2>
+				<ul id='price-filter'>
+					<?php $i=0;foreach($filter_list['price'] as $val):?>
+					<?php if($i < 5): ?>
+					<li class="clearfix">
+						<input type="checkbox" <?php if(in_array($val,$price_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php else:?>
+					<li class="clearfix" style="display:none;">
+						<input type="checkbox" <?php if(in_array($val,$price_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+					</li>
+					<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['price']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+		</div>
+		<div class="right_content">
+			<ul>
+                <?php foreach($list as $k=>$val):?>
+				<li class="clearfix">
+					<div class="item_info">
+                        <a target="_blank" href="/project/detail?project_no=<?=$val['project_no']?>">
+							<h2><?=$val['name']?></h2>
+							<h3><?=$val['descri']?></h3>
+						</a>
+						<div class="clearfix">
+							<div class="float_left"><h4>项目预算：</h4><p>
+                                <?php if($val['price'] && $val['price'] != '竞价'):?>
+                                    <?=$val['price']?>万
+                                <?php else:?>
+                                    <?=$val['price']?>
+                                <?php endif;?>
+                            </php></div>
+							<div class="float_left"><h4>项目发布时间：</h4><p><?=date('Y-m-d',$val['add_time'])?></p></div>
+							<div class="float_left"><h4>委托单位：</h4><p><?=$val['entrust_org']?></p></div>
+						</div>
+					</div>
+				</li>
+                <?php endforeach;?>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="subscribe_module" class="snail_module" data-status="hide">
+    <input type="hidden" id="subscribe_type" value="<?php echo $subscribe_type?>">
+    <div class="snail_module_panel snail_subscribe_panel">
+        <div class="snail_module_head"><h2>订阅推送</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="step_one">
+                <h4>请输入关键词，比如：“发电”、“秸秆”，</h4>
+                <h4>如不输入关键词，则默认订阅该板块全部更新</h4>
+                <ul class="new_key">
+                    <li class="clearfix">
+                        <div class="key_input"><input type="text" placeholder="请输入关键字"></div>
+                        <span class="add">+</span>
+                    </li>
+                </ul>
+                <h5>已订阅关键词（最多订阅6个关键词）</h5>
+                <ul class="past_key clearfix">
+                    <?php foreach($subscribe as $s):?>
+                        <li><p title="<?php echo $s?>"><?php echo $s?></p><span class="del">&times;</span></li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <div class="step_two" style="display: none;">
+                <div class="QRcode"></div>
+                <h6>微信扫描<span class="showy">二维码</span>完成订阅关键词：
+                    <span id="sub_word"></span>
+                </h6>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" class="next">下一步</button>
+            <button type="button" class="prev" style="display: none;">上一步</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/form.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#type-filter input').click(function(){
+            jump_page(1);
+        });
+        $('#company-filter input').click(function(){
+            jump_page(1);
+        });
+        $('#price-filter input').click(function(){
+            jump_page(1);
+        });
+        $('.search input').keyup(function(e){
+            if (window.event)//如果window.event对象存在，就以此事件对象为准
+                e = window.event;
+            var code = e.charCode || e.keyCode;
+            if (code == 13) {
+                jump_page(1);
+            }
+        });
+        $('.snail_page a').click(function(e){
+            e.preventDefault();
+            jump_page(parseInt($(this).attr('data-ci-pagination-page')));
+        });
+
+        var jump_page = function(page){
+            var type=new Array(),company=new Array(),price=new Array();
+            $('#type-filter input:checked').each(function(){
+                type.push($(this).next().text());
+            });
+            $('#company-filter input:checked').each(function(){
+                company.push($(this).next().text());
+            });
+            $('#price-filter input:checked').each(function(){
+                price.push($(this).next().text());
+            });
+            var search = $('.search input').val();
+            $.form('/project',
+                    {
+                        'type':type.join(','),
+                        'company':company.join(','),
+                        'price':price.join(','),
+                        'page':page,
+                        'search':search
+                    },
+                    'POST').submit();
+        }
+    });
+</script>

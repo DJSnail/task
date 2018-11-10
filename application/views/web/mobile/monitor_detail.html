@@ -1,0 +1,22 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>产业信息</h1>
+		<a onclick="window.history.back();" class="go_back">&lt;&nbsp;返回</a>
+	</header>
+	<article class="main_wrap">
+		<article class="detail_title">
+			<h2><?php echo $data["title"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $data["mdate"]?></span>
+				<span class="label1">产业信息</span>
+				<span class="label2"><?php echo $data["institute"]?></span>
+			</div>
+		</article>
+		<article class="project_detail">
+			<section class="project_info">
+				<h3>项目信息：</h3>
+				<p><?php echo ($data["content"])?></p>
+			</section>
+		</article>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

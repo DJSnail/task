@@ -1,0 +1,228 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+<div class="row">
+    <div class="col-md-12 btn-area">
+        <div class="btn-group pull-left" role="group" aria-label="...">
+            
+        </div>
+    </div>
+</div>
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:return false;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="name" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家单位</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="company" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家类型</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="type" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家手机</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="phone" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>办公电话</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="fixed_phone" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家邮箱</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="email" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>研究领域</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="domain" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家地址</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="location" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家职务</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="job" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>职称</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="title" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>科研项目</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="project" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>代表论著</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="works" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>封面图片</label>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="" class="form-control input-sm" value="" name="pic" readonly>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-default btn-sm" id="upload_img">上传</button>
+                        <em> &nbsp;&nbsp;&nbsp;&nbsp;*最大不超过2M</em>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font></label>
+                    <div class="col-sm-4">
+                        <div  style="width:220px;height: 150px; border:1px #e4e4e4 solid; overflow: hidden;">
+                            <img src="/static/admin/img/default.png" width="220" height="150" id="show_img">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家简历</label>
+                    <div class="col-sm-8">
+                        <textarea  id="addons_UEditor" required style="width: 700px;height:350px;"  name="resume"></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                        
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 文件上传 加载js -->
+<?php $this->load->view('public/plupload.html');?>
+<?php $this->load->view('public/ueditor.html');?>
+<script> plupImage('Report/expert',0,0,'upload_img','show_img','pic','2mb','png,jpeg,jpg'); </script>
+<!-- 文件上传 加载js -->
+
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+<script type="text/javascript">
+    $(function(){
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            console.log(data);
+            ajaxRequest({'form_data':data},'/admin/expert/save','save_data','POST',3);
+            return false;
+        });
+
+
+
+        
+    });
+</script>

@@ -1,0 +1,37 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>项目详情</h1>
+		<a onclick="window.history.back();" class="go_back">&lt;&nbsp;返回</a>
+	</header>
+	<article class="main_wrap">
+		<article class="detail_title">
+			<h2><?php echo $data["name"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $data["add_time"]?></span>
+				<span class="label1">项目合作</span>
+				<span class="label2"><?php echo $data["type"]?></span>
+			</div>
+		</article>
+		<article class="project_detail">
+			<section class="project_info">
+				<h3>项目信息：</h3>
+				<p><?php echo $data["descri"]?></p>
+			</section>
+			<section class="project_info">
+				<h3>报名及招标文件的获取：</h3>
+				<p>1.媒介：本次公告在中国华能电子商务平台（http://ec.chng.com.cn）发布。因轻信其他组织、个人或媒介提供的信息而造成的损失，其责任由投标人自行负责。</p>
+				<p>2.本项目通过中国华能电子商务平台（http://ec.chng.com.cn）进行报名、下载文件、澄清等工作，投标人须登陆网站进行投标报名、下载文件等有关操作。</p>
+				<p>
+					有意参加并符合条件的投标人，未在华能集团电子商务平台注册过的新供应商请点击左侧“用户注册”按钮完成注册流程。供应商注册成功后，要申请成为潜在供应商，请耐心等待平台运维人员的审核，审核结果会以短信形式发送通知。只有审核合格的供应商才能参与平台相关业务。正式用户凭已注册的用户名和密码登录系统进行相关操作。
+				</p>
+				<p>
+					3.有意向的投标人可于2017年 12月12 日9:00起至2017年12月 14日17:00止，登陆中国华能电子商务平台（http://ec.chng.com.cn）进入招投标平台-报名管理-项目报名中上传报名文件（含企业营业执照扫描件、法定代表人授权委托书扫描件、授权代理人身份证扫描件、资质证书扫描件、类似设备业绩证明材料）报名，并与招标方联系人联系完成报名审核。
+				</p>
+				<p>在购领标书时填写的联系人必须是本次投标的业务联系人，在报名、招标、发标、评标期间的短信通知都将发送到此联系人，所有的澄清也都将通知此联系人。</p>
+				<p>4.获取招标文件方式：</p>
+				<p>4.1.报名审核通过后，投标人直接在电子招投标平台的投标管理-购买招标文件-下载招标文件电子版。</p>
+				<p>4.2.招标文件获取失败或其他问题，与招标方联系人联系。</p>
+			</section>
+		</article>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

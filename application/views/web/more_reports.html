@@ -1,0 +1,173 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<?php
+	$list=$report_list['data']['items'];
+?>
+<?php if(isset($report_top)):?>
+<div class="floor_descr" style="height: 308px;">
+	<div class="wrap advice_wrap">
+		<div class="descr clearfix">
+			<div class="descr_left"><img src="<?=$report_top['cover']?>"></div>
+			<div class="descr_right">
+				<h2><?=$report_top['title']?></h2>
+				<h3><?=$report_top['detail']?></h3>
+				<div class="btn_group"><a target="_blank" href="/report/detail?report_no=<?=$report_top['report_no']?>">查看详情</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif;?>
+<div class="floor_content">
+	<div class="wrap clearfix">
+		<div class="title_content box_sizing">
+			<ul class="clearfix">
+				<li class="active" style="margin-right: 220px;"><a href="javascript:;">报告浏览</a></li>
+				<li class="search"><input type="text" value="<?php echo $search_filter ?>"></li>
+			</ul>
+			<button type="button" id="subscribe_btn">+订阅</button>
+		</div>
+		<div class="left_content">
+			<div class="list_group">
+				<h2>产业领域</h2>
+				<ul id='category-filter'>
+					<?php $i=0;foreach($filter_list['category'] as $val):?>
+						<?php if($i < 5): ?>
+						<li class="clearfix">
+							<input type="checkbox" <?php if(in_array($val,$category_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php else:?>
+						<li class="clearfix" style="display:none;">
+							<input type="checkbox" <?php if(in_array($val,$category_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['category']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+			<div class="list_group">
+				<h2>单位机构</h2>
+				<ul id="company-filter">
+					<?php $i=0;foreach($filter_list['company'] as $val):?>
+						<?php if($i < 5): ?>
+						<li class="clearfix">
+							<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php else:?>
+						<li class="clearfix" style="display:none;">
+							<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['company']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+		</div>
+		<div class="right_content">
+			<ul>
+				<?php foreach($list as $k=>$val):?>
+
+				<li class="clearfix">
+					<div class="item_pic"><img src="<?=$val['cover']?>"></div>
+					<div class="item_info">
+						<a target="_blank" href="/report/detail?report_no=<?=$val['report_no']?>">
+							<h2><?=$val['title']?></h2>
+							<h3><?=my_strip_tags($val['detail'])?></h3>
+						</a>
+						<div class="clearfix">
+							<div class="float_left"><h4>完成单位：</h4><p><?=$val['company']?></p></div>
+							<div class="float_left"><h4>发布时间：</h4><p><?=date('Y-m-d',$val['public_time'])?></p></div>
+							<div class="float_left"><h4>分类：</h4><p><?=$val['category']?></p></div>
+						</div>
+					</div>
+				</li>
+
+				<?php endforeach;?>
+			</ul>
+			<?=$pagestring?>
+		</div>
+	</div>
+</div>
+
+<div id="subscribe_module" class="snail_module" data-status="hide">
+	<input type="hidden" id="subscribe_type" value="<?php echo $subscribe_type?>">
+	<div class="snail_module_panel snail_subscribe_panel">
+		<div class="snail_module_head"><h2>订阅推送</h2><span class="close">&times;</span></div>
+		<div class="snail_module_body">
+			<div class="step_one">
+				<h4>请输入关键词，比如：“发电”、“秸秆”，</h4>
+				<h4>如不输入关键词，则默认订阅该板块全部更新</h4>
+				<ul class="new_key">
+					<li class="clearfix">
+						<div class="key_input"><input type="text" placeholder="请输入关键字"></div>
+						<span class="add">+</span>
+					</li>
+				</ul>
+				<h5>已订阅关键词（最多订阅6个关键词）</h5>
+				<ul class="past_key clearfix">
+					<?php foreach($subscribe as $s):?>
+					<li><p title="<?php echo $s?>"><?php echo $s?></p><span class="del">&times;</span></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+			<div class="step_two" style="display: none;">
+				<div class="QRcode"></div>
+				<h6>微信扫描<span class="showy">二维码</span>完成订阅关键词：
+					<span id="sub_word"></span>
+				</h6>
+			</div>
+		</div>
+		<div class="snail_module_foot">
+			<button type="button" class="next">下一步</button>
+			<button type="button" class="prev" style="display: none;">上一步</button>
+		</div>
+	</div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/form.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#category-filter input').click(function(){
+			jump_page(1);
+		});
+		$('#company-filter input').click(function(){
+			jump_page(1);
+		});
+		$('.snail_page a').click(function(e){
+			e.preventDefault();
+			jump_page(parseInt($(this).attr('data-ci-pagination-page')));
+		});
+		$('.search input').keyup(function(e){
+            if (window.event)//如果window.event对象存在，就以此事件对象为准
+                e = window.event;
+            var code = e.charCode || e.keyCode;
+            if (code == 13) {
+                jump_page(1);
+            }
+        });
+		var jump_page = function(page){
+			var category=new Array(),company=new Array();
+			$('#category-filter input:checked').each(function(){
+				category.push($(this).next().text());
+			});
+			$('#company-filter input:checked').each(function(){
+				company.push($(this).next().text());
+			});
+			var search = $('.search input').val();
+			$.form('/report/more_reports', 
+					{
+						'search':search,
+						'category':category.join(','),
+						'company':company.join(','),
+						'page':page
+					}, 
+					'POST').submit();
+		}
+	});
+</script>

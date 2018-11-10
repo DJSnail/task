@@ -1,0 +1,249 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<style>
+    .text-algin{
+        padding-top: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>报告编号</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['report_no']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>研究领域</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['domain']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>分析主题</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['subject']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>关键词</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['keyword']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>分析目的</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['purpose']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>拟解决的关键问题</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['solution']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>用户名称</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['nickname']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主要联系人</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['main_nickname']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>其他联系人</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$other_name?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>提交时间</label>
+                    <div class="col-sm-4 text-algin">
+                        <?php echo date("Y-m-d H:i:s",$report['add_time']);?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>PDF完整版</label>
+                    <div class="col-sm-6 text-algin">
+                        <?php if(count($atta)>=1):?>
+                            <?php foreach($atta as $at):?>
+                            <?=$at['name'];?> <a href="/public/download/index?file=<?=$at['code']?>"> &nbsp;&nbsp;【下载】</a><br/>
+                        <?php endforeach;?>
+                        <?php endif;?>
+                        <!-- 下载 -->
+                    </div>
+                    <div class="col-sm-4">
+                    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>处理意见</label>
+                    <div class="col-sm-6">
+<textarea class="form-control" placeholder="请填写意见" name="op_suggestion" rows="4"><?=$report['op_suggestion']?></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <em></em>
+                    </div>
+                </div>
+                <?php if($report['op_attachment']):?>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right"><font color="red"></font>处理意见附件</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="upload_file_path" required placeholder="文件地址" value="<?=$op_atta['path']?>" disabled="">
+                                <input type='hidden' name="upload_file_name" value="<?=$op_atta['name']?>" disabled="">
+                                <input type='hidden' name="upload_file_id" value="<?=$op_atta['id']?>">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="upload_file">重新上传</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                        <span id="upload_file_alert">名称:<?=$op_atta['name']?> </span> 
+                            <em><font color="red">*</font>
+                            仅支持.pdf格式文件，最大不超过10M</em>
+                        </div>
+                    </div
+                <?php else:?>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>处理意见附件</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="upload_file_path" required placeholder="文件地址" disabled="">
+                            <input type='hidden' name="upload_file_name" value="" disabled="">
+                            <input type='hidden' name="upload_file_id" value="">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="upload_file">上传文件</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <em><font color="red">*</font>仅支持.pdf格式文件，最大不超过10M</em>
+                    </div>
+                </div>
+                <?php endif;?>
+                
+               
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>审核结果</label>
+                    <div class="col-sm-6 text-algin">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==1):?> checked <?php endif;?>  value="1" >审核中
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==2):?> checked <?php endif;?> value="2" >驳回
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==3):?> checked <?php endif;?> value="3" >通过
+                        </label>
+
+                    </div>
+                    <div class="col-sm-4">
+                    
+                    </div>
+                </div>
+
+                 <input type='hidden' name="id" value="<?=$report['id']?>"> 
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+
+<?php $this->load->view('public/plupload.html');?>
+
+<script> plupFile('Report/op_atta','upload_file','upload_file','10mb','pdf'); </script>
+<!-- 文件上传 加载js -->
+
+<script type="text/javascript">
+    $(function(){
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            ajaxRequest({'form_data':data},'/admin/reportcustom/changeStatus','save_data','POST',3);
+            return false;
+        });
+
+        
+    });
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="utf-8">
+		<title>登录-生物质产业信息资源平台</title>
+        <link rel="shortcut icon" type="image/ico" href="/static/image/favicon.png">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css?v=<?=$v?>">
+	</head>
+	<body>
+		<div id="login_mask" class="login_mask" style="background-color: rgba(0, 0, 0, 0.85);">
+            <input type="hidden" id="continue_url" value="<?php echo $continue ?>">
+			<div class="login_panel">
+				<div class="pic">
+                    <img src="<?php echo $url ?>">
+                </div>
+                <h2>
+                    <span>微信</span>
+                    扫描直接注册登录
+                </h2>
+            </div>
+        </div>
+    </body>
+	<script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script>
+        var login_timer;
+        var login_count = 0;
+
+        login_timer = setInterval(user_login, 1500);
+
+        function user_login(){
+            if(login_count >= 90){
+                alert("登录过期, 请重新登录");
+                login_count = 0;
+                clearInterval(login_timer);
+                return;
+            }
+            $.ajax({
+                type: 'get',
+                url: "/user/user_login",
+                data: {
+                },
+                dataType: 'json',
+                success: function(data){
+                    if(data == -1){
+                        login_count = 0;
+                        clearInterval(login_timer);
+                    }
+                    if(data && data['nickname']){
+                        login_count = 0;
+                        clearInterval(login_timer);
+                        var continue_url = $('#continue_url').val();
+                        if(continue_url){
+                            window.location.href = continue_url;
+                        }
+                    }
+                    login_count ++;
+                }
+            });
+        }
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

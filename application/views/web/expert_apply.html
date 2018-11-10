@@ -1,0 +1,505 @@
+
+<?php $this->load->view('web/common/header.html');?>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.slider.css?v=<?=$v?>">
+
+<div class="floor_descr">
+    <div class="wrap">
+        <div class="descr">
+            <h2>申请专家资格</h2>
+            <h3>
+                生物质平台专家审定专家应从事相关专业领域工作满五年并具有高级职称或同等专业水平，在生物质传统产业转型和战略性新兴产业方面有相关经验，可以面向战略决策，提供政策与技术发展态势监测、市场分析与投资咨询、前沿技术趋势预见等提供咨询服务。
+            </h3>
+        </div>
+    </div>
+</div>
+
+<div class="floor_form">
+    <div class="wrap clearfix">
+        <div class="left_form">
+            <?php if(isset($main_conn)) :?>
+            <input type="hidden" id="exists_main_conn" value="1">
+            <div class="row_group">
+                <div class="client clearfix" data-id="<?php echo  $main_conn['id'] ?>">
+                    <h2>主要联系人</h2>
+                    <span class="name"><?php echo  $main_conn["username"] ?></span>
+                    <span class="edit_contact" data-id="<?php echo  $main_conn['id'] ?>" style="margin-right:85px;">修改</span>
+                </div>
+            </div>
+
+            <?php else :?>
+
+            <div class="group_wrap">
+                <h2>主要联系人</h2>
+                <div class="group_content">
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>姓名</h3></div>
+                            <div class="input"><input id="main_conn_name" type="text" placeholder="请输入姓名"></div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>邮箱</h3></div>
+                            <div class="input"><input id="main_conn_email" type="text" placeholder="请输入邮箱"></div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>单位</h3></div>
+                            <div class="input"><input id="main_conn_company" type="text" placeholder="请输入单位名称"></div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>手机</h3></div>
+                            <div class="input"><input id="main_conn_phone" type="text" placeholder="请输入手机号码"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif ;?>
+
+            <?php if(isset($other_conn)) :?>
+            <?php foreach($other_conn as $c):?>
+            <div class="row_group">
+                <div class="client clearfix" data-id="<?php echo  $c['id'] ?>">
+                    <h2>其他联系人</h2>
+                    <span class="name"><?php echo  $c["username"] ?></span>
+                    <span class="del_contact" data-id="<?php echo  $c['id'] ?>">删除</span>
+                    <span class="edit_contact" data-id="<?php echo  $c['id'] ?>">修改</span>
+                </div>
+            </div>
+            <?php endforeach ;?>
+            <?php endif ;?>
+
+            <div class="row_group"><p id="add_contact" class="add_contact">+添加其他联系人</p></div>
+
+            <div class="group_wrap">
+                <h2>申请专家</h2>
+                <div class="group_content">
+                    <input type="hidden" id="random_code" value="<?php echo $random_code ?>">
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>专家姓名</h3></div>
+                            <div class="input"><input type="text" id="name" placeholder="请填写专家姓名"></div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>手机号</h3></div>
+                            <div class="input"><input type="text" id="phone" placeholder="请填写手机号"></div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>专家单位</h3></div>
+                            <div class="input"><input type="text" id="company" placeholder="请填写专家单位"></div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>单位地址</h3></div>
+                            <div class="input"><input type="text" id="location" placeholder="请填写地址"></div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>职务</h3></div>
+                            <div class="input"><input type="text" id="job" placeholder="请填写职务"></div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>电子邮箱</h3></div>
+                            <div class="input"><input type="text" id="email" placeholder="请填写电子邮箱"></div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group">
+                            <div class="title"><h3>专家类型</h3></div>
+                            <div class="input">
+                                <select class="box_sizing" id="type">
+                                    <option value="0"></option>
+                                    <?php foreach($type as $t):?>
+                                    <option value="<?php echo $t ?>"><?php echo $t ?></option>
+                                    <?php endforeach ;?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col_group" style="margin-right: 0px;">
+                            <div class="title"><h3>研究领域</h3></div>
+                            <div class="input">
+                                <select class="box_sizing" id="domain">
+                                    <option value="0"></option>
+                                    <?php foreach($domain as $d):?>
+                                    <option value="<?php echo $d ?>"><?php echo $d ?></option>
+                                    <?php endforeach ;?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group" style="width: 640px; margin-right: 0px;">
+                            <div class="title"><h3>简历介绍</h3></div>
+                            <div class="input">
+                                <div class="textarea">
+                                    <textarea id="resume" placeholder="请填写简历介绍"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group" style="width: 640px; margin-right: 0px;">
+                            <div class="title"><h3>科研项目</h3></div>
+                            <div class="input">
+                                <div class="textarea">
+                                    <textarea id="project" placeholder="请填写科研项目"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_group clearfix">
+                        <div class="col_group" style="width: 640px; margin-right: 0px;">
+                            <div class="title"><h3>代表论著</h3></div>
+                            <div class="input">
+                                <div class="textarea">
+                                    <textarea id="works" placeholder="请填写代表论著"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row_group clearfix">
+                        <div class="col_group" style="width: 640px; margin-right: 0px;">
+                            <div class="title"><h3>照片上传（尺寸 &lt; 500*500，大小 &lt; 10MB）</h3></div>
+                            <div class="input">
+                                <div class="textarea">
+                                    <div class="">
+                                        <ul id="enclo_list" class="enclo_list"></ul>
+                                        <div>
+                                            <div id="enclo_upload" class="enclo_upload">+点此上传照片</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row_group">
+                <div id="move_bar"></div>
+            </div>
+
+            <div class="row_group" style="padding-top: 50px;">
+                <button type="button" id="submit_form" class="submit_form">提交</button>
+            </div>
+
+        </div>
+        <div class="right_process">
+            <h2>申请流程</h2>
+            <ul class="process_list">
+                <li>提出申请</li>
+                <li>专家审核</li>
+                <li>信息公开</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 添加模态框 -->
+<div id="add_module" class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>其他联系人</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="add_name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="add_company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="add_email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="add_phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit_add_module">提交</button>
+        </div>
+    </div>
+</div>
+
+<!-- 添加模态框 -->
+<div id="update_module" class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>其他联系人</h2><span class="close">&times;</span></div>
+        <input type="hidden" id="update_user_id">
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="update_name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="update_company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="update_email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="update_phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit_update_module">提交</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer.html');?>
+
+<script type="text/javascript" src="/static/js/jquery.slider.min.js"></script>
+<script type="text/javascript" src="/static/admin/Plugins/plupload-2.1.2/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="/static/js/plupload.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+    var move_slider = false;
+    // 添加联系人
+    $('#add_contact').click(function () {
+        $('#add_module').attr('data-status', 'show');
+    });
+    //添加其他联系人,提交
+    $('#submit_add_module').click(function () {
+        var name = $.trim($('#add_name').val()), company = $.trim($('#add_company').val()),
+            email = $.trim($('#add_email').val()), phone = $.trim($('#add_phone').val());
+        if (!name || !company || !email || !phone) {
+            tips('信息要填写完整');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/add_connect_user',
+            data: {
+                username: name,
+                company: company,
+                email: email,
+                phone: phone,
+                is_main: 0
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res['status'] == -1) {
+                    tips(res['error']);
+                } else {
+                    var htmlStr = '<div class="row_group"><div class="client clearfix" data-id="' + res['user']['id'] + '">';
+                    htmlStr += '<h2>其他联系人</h2><span class="name">' + name + '</span>';
+                    htmlStr += '<span class="del_contact" data-id="' + res['user']['id'] + '">删除</span>';
+                    htmlStr += '<span class="edit_contact" data-id="' + res['user']['id'] + '">修改</span></div></div>';
+                    $('#add_contact').parent().before(htmlStr);
+                    $('.snail_module').find('.close').trigger('click');
+                }
+            },
+            error: function () {
+
+            }
+        });
+    });
+    //修改其他联系人,提交
+    $('#submit_update_module').click(function () {
+        var name = $.trim($('#update_name').val()), company = $.trim($('#update_company').val()),
+                email = $.trim($('#update_email').val()), id = $.trim($('#update_user_id').val()),
+                phone = $.trim($('#update_phone').val());
+        if (!name || !company || !email || !phone || !id) {
+            tips('信息要填写完整');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/update_connect_user',
+            data: {
+                username: name,
+                company: company,
+                email: email,
+                phone: phone,
+                id: id
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res['status'] == -1) {
+                    tips(res['error']);
+                }
+                if (res['status'] == 1) {
+                    $('.client[data-id="' + res['user']['id'] + '"]').find('.name').html(res['user']['username'])
+                    $('.snail_module').find('.close').trigger('click');
+                }
+            },
+            error: function () {
+
+            }
+        });
+    });
+    // 点击修改联系人按钮
+    $('body').on('click', '.edit_contact', function () {
+        var id = $(this).attr('data-id');
+        if (id) {
+            $.ajax({
+                type: 'post',
+                url: "/user/get_connect_user",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['status'] == -1) {
+                        tips(data['error']);
+                    }
+                    if (data['status'] == 1) {
+                        $('#update_name').val(data['user']['username']);
+                        $('#update_phone').val(data['user']['phone']);
+                        $('#update_email').val(data['user']['email']);
+                        $('#update_company').val(data['user']['company']);
+                        $('#update_user_id').val(id);
+                        $('#update_module').attr('data-status', 'show');
+                    }
+                }
+            });
+        }
+    });
+    // 删除联系人
+    $('body').on('click', '.del_contact', function () {
+        var oThis = $(this), id = oThis.attr('data-id');
+        if (id) {
+            $.ajax({
+                type: 'post',
+                url: "/user/del_connect_user",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['status'] == -1) {
+                        tips(data['error']);
+                    }
+                    if (data['status'] == 1) {
+                        oThis.closest('.row_group').remove();
+                    }
+                }
+            });
+        }
+    });
+    // 上传附件
+    plupImage('customReport', '500-lt', '500-lt', 'enclo_upload', '10mb', 'enclo_list');
+    $('#enclo_list').on('click', 'span', function () {
+        $(this).closest('li').remove();
+    });
+    // 拖动滑块
+    $("#move_bar").slider({
+        width: 340, // width
+        height: 40, // height
+        sliderBg: "rgb(134, 134, 131)", // 滑块背景颜色
+        color: "#fff", // 文字颜色
+        fontSize: 14, // 文字大小
+        bgColor: "#33CC00", // 背景颜色
+        textMsg: "按住滑块，拖拽验证", // 提示文字
+        successMsg: "验证通过了哦", // 验证成功提示文字
+        successColor: "#fff", // 滑块验证成功提示文字颜色
+        time: 400, // 返回时间
+        callback: function (result) { // 回调函数，true(成功),false(失败)
+            if (result) {
+                move_slider = true;
+            }
+        }
+    });
+    // 提交表单
+    $("#submit_form").click(function () {
+        if(!move_slider){
+            tips("请拖动滑块验证");
+            return;
+        }
+        var existsMainConn = $('#exists_main_conn').val();
+        if (existsMainConn == 1) {
+            addReport();
+        } else {
+            var username = $.trim($('#main_conn_name').val());
+            var phone = $.trim($('#main_conn_phone').val());
+            var email = $.trim($('#main_conn_email').val());
+            var company = $.trim($('#main_conn_company').val());
+            if (!username || !phone || !email || !company) {
+                tips("请填写主要联系人信息");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: "/user/add_connect_user",
+                data: {
+                    'username': username,
+                    'phone': phone,
+                    'email': email,
+                    'company': company,
+                    'is_main': 1
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['status'] == -1) {
+                        tips(data['error']);
+                    }
+                    if (data['status'] == 1) {
+                        addReport();
+                    }
+                }
+            });
+        }
+    });
+    //添加定制报告
+    function addReport() {
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var company = $('#company').val();
+        var domain = $('#domain').val();
+        var job = $('#job').val();
+        var type = $('#type').val();
+        var resume = $('#resume').val();
+        var project = $('#project').val();
+        var works = $('#works').val();
+        var location = $('#location').val();
+        var random_code = $('#random_code').val();
+        //var attachment_id = [];
+        var attachment_id = '';
+        $('#enclo_list').children('li').each(function () {
+            var pic = $(this).attr('data-pic');
+            //attachment_id.push(id);
+            attachment_id = pic;
+        })
+        if (!name || !email || !phone || !company || !domain || !job || !type || !resume || !project || !works || !attachment_id || !location) {
+            tips("请填写完整申请需求");
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: "/expert/add_apply_expert",
+            data: {
+                name:name,
+                email:email,
+                phone:phone,
+                company:company,
+                domain: domain,
+                location:location,
+                job: job,
+                type: type,
+                resume: resume,
+                project: project,
+                works:works,
+                attachment: attachment_id,
+                random_code:random_code
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data['status'] == -1) {
+                    tips(data['error']);
+                }
+                if (data['status'] == 1) {
+                    alert('您已经成功提交需求表单');
+                    window.location.href = '/user/order_list?type=申请专家';
+                }
+            }
+        });
+    }
+</script>

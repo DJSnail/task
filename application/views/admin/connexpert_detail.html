@@ -1,0 +1,177 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<style>
+    .text-algin{
+        padding-top: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>联系人姓名</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['conn_name']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>提交时间</label>
+                    <div class="col-sm-4 text-algin">
+                        <?php echo date("Y-m-d H:i:s",$report['add_time']);?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <hr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家姓名</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['foreign_name']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家基本信息</label>
+                    <div class="col-sm-4 text-algin">
+                        编号：<?=$report['expert_nos']?><br/>
+                        类型：<?=$report['type']?><br/>
+                        领域：<?=$report['domain']?><br/>
+                        单位：<?=$report['company']?><br/>
+                        职位：<?=$report['job']?><br/>
+                        职称：<?=$report['title']?><br/>
+                        手机：<?=$report['phone']?><br/>
+                        邮箱：<?=$report['email']?><br/>
+                        地址：<?=$report['location']?><br/>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家简历</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['resume']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>科研项目</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['project']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>代表论著</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$report['works']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+            
+
+                
+
+                
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>处理意见</label>
+                    <div class="col-sm-6">
+<textarea class="form-control" placeholder="请填写意见" name="solution" rows="4"><?=$report['solution']?></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>审核结果</label>
+                    <div class="col-sm-6 text-algin">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==1):?> checked <?php endif;?>  value="1" >审核中
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==2):?> checked <?php endif;?> value="2" >驳回
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($report['status']==3):?> checked <?php endif;?> value="3" >通过
+                        </label>
+
+                    </div>
+                    <div class="col-sm-4">
+                    
+                    </div>
+                </div>
+
+                 <input type='hidden' name="id" value="<?=$report['id']?>"> 
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+<!-- 文件上传 加载js -->
+
+<script type="text/javascript">
+    $(function(){
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            ajaxRequest({'form_data':data},'/admin/connexpert/changeStatus','save_data','POST',3);
+            return false;
+        });
+
+        
+    });
+</script>

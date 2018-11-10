@@ -1,0 +1,207 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+<div class="row">
+    <div class="col-md-12 btn-area">
+        <div class="btn-group pull-left" role="group" aria-label="...">
+            
+        </div>
+    </div>
+</div>
+
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>报告名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="title" placeholder="" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主题分类</label>
+                    <div class="col-sm-4">
+                        <select class="form-control input-sm" id="category" name="category">
+                            <option value="0">请选择分类</option>
+                            <?php foreach($category as $kk=>$f): ?>
+                            <option value="<?=$kk?>" disabled="disabled"><?=$kk?></option>
+                                <?php foreach($f as $k => $v):?>
+                                    <option value="<?=$v?>">&nbsp;&nbsp;&nbsp;&nbsp;<?=$v?></option>
+                                <?php endforeach;?>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>关键词</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="keyword" placeholder="多个作者请使用逗号或者分号隔开" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font>多个关键词请使用逗号或者分号隔开</em>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>作者</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="author" placeholder="多个作者请使用逗号或者分号隔开" class="form-control input-sm" value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font>多个作者请使用逗号或者分号隔开</em>
+                        
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>完成单位</label>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="完成单位" class="form-control input-sm" value="" name="company" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>价格</label>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="价格填写整数" class="form-control input-sm" value="" name="price" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>发布时间</label>
+                    <div class="col-sm-2">
+                        <input type="date" placeholder="" class="form-control input-sm" value="" name="public_time" required>
+                    </div>
+                    <div class="col-sm-8">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>内容</label>
+                    <div class="col-sm-8">
+                        <textarea  id="addons_UEditor" required style="width: 700px;height:350px;"  name="detail"></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <em><font color="red">*</font></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>封面图片</label>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="" class="form-control input-sm" value="" name="cover" readonly>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-default btn-sm" id="upload_img">上传</button>
+                        <em> &nbsp;&nbsp;&nbsp;&nbsp;*最大不超过10M</em>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font></label>
+                    <div class="col-sm-4">
+                        <div  style="width:220px;height: 150px; border:1px #e4e4e4 solid; overflow: hidden;">
+                            <img src="/static/admin/img/default.png" width="220" height="150" id="show_img">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>PDF简版</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="upload_file_path" required placeholder="文件地址" disabled="">
+                            <input type='hidden' name="upload_file_name" value="" disabled="">
+                            <input type='hidden' name="upload_file_id" value="">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="upload_file">上传文件</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <em><font color="red">*</font>仅支持.pdf格式文件，最大不超过10M</em>
+                    </div>
+                </div>                 
+                
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 文件上传 加载js -->
+<?php $this->load->view('public/plupload.html');?>
+<?php $this->load->view('public/ueditor.html');?>
+
+<script> plupImage('Report/cover',0,0,'upload_img','show_img','cover','2mb','png,jpeg,jpg'); </script>
+<script> plupFile('Report/pdf','upload_file','upload_file','10mb','pdf'); </script>
+<!-- 文件上传 加载js -->
+
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+<script type="text/javascript">
+    $(function(){
+        
+
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            console.log(data);
+            ajaxRequest({'form_data':data},'/admin/report/save','save_data','POST',3);
+            return false;
+        });
+
+        
+    });
+</script>

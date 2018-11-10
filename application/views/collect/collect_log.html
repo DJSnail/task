@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>采集日志</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>采集日志（4089）</h2>
+				</div>
+				<div class="header_button float_left">
+					<a href="./collect_task_new.html" class="btn btn-primary">新增文章</a>
+				</div>
+				<div class="header_search float_right">
+				  <input type="text" class="form-control">
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="header_batch float_left">
+					<a class="color_primary" href="javascript:;">批量忽略</a>
+					<a class="color_danger" href="javascript:;">批量删除</a>
+				</div>
+				<div class="header_button float_right">
+					<button type="button" class="btn btn-primary" data-state="normal" onclick="onCollectScreen(this, 'collect_type', 'collect_channel')">筛选</button>
+				</div>
+				<div class="header_select float_right">
+					<select id="collect_type" class="selectpicker show-tick">
+						<option value="0">查看所有状态</option>
+						<option value="1">bull</option>
+						<option value="2">dgdsagsd</option>
+						<option value="3">cvbcvnxc</option>
+					</select>
+				</div>
+				<div class="header_select float_right">
+					<select id="collect_channel" class="selectpicker show-tick">
+						<option value="0">查看所有来源</option>
+						<option value="1">bull</option>
+						<option value="2">dgdsagsd</option>
+						<option value="3">cvbcvnxc</option>
+					</select>
+				</div>
+				<div class="header_delete float_right">
+					<a href="/static/order/order_deleted.html">已删除文章（209）</a>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<div class="table-responsive body_table">
+				<table class="table table-striped">
+					<thead id="thead">
+						<tr>
+							<th><div style="min-width:20px;"><input id="select_all" type="checkbox"></div></th>
+							<th><div style="min-width:200px;">来源</div></th>
+							<th><div style="min-width:150px;">状态</div></th>
+							<th><div style="min-width:150px;">采集日期</div></th>
+							<th><div style="min-width:120px;">操作</div></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<tr data-id="1">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>
+								<h3>中国生物工程学会所中国生物工程学会所</h3>
+								<a href="javascript:;">http://www.itp.cas.cn/xshd/ls/201809/t20123321123/crtye</a>
+							</div></td>
+							<td><div class="color_danger">无法打开网页</div></td>
+							<td><div>2018/12/1 12:00:01</div></td>
+							<td><div>
+								<a href="javascript:;" class="button color_danger">忽略</a>
+								<a href="javascript:;" class="button color_delete">删除</a>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="footer clearfix">
+			<ul id="page" class="footer_page">
+				<li class="item" data-tar="prev" data-num="0"><span><i class="glyphicon glyphicon-chevron-left"></i>上一页</span></li>
+				<li class="item active" data-tar="item" data-num="1"><span>1</span></li>
+				<li class="item" data-tar="item" data-num="2"><span>2</span></li>
+				<li class="item" data-tar="item" data-num="3"><span>3</span></li>
+				<li class="item" data-tar="item" data-num="4"><span>4</span></li>
+				<li class="item" data-tar="next" data-num="0"><span>下一页<i class="glyphicon glyphicon-chevron-right"></i></span></li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+	</body>
+</html>

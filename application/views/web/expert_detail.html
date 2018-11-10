@@ -1,0 +1,172 @@
+		
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+            <a href="/">首页</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <a href="/home/achievement">成果对接</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <a href="/expert">专家咨询</a>
+		</div>
+		<div class="reports_details_body clearfix">
+			<div class="reports_details_body_left expert_detail_body_left">
+				<div class="pic">
+					<img src="<?php echo $expert['pic'] ?>" >
+				</div>
+				<ul class="info">
+					<li>
+						<h3>姓名:</h3>
+						<p><?php echo $expert['name'] ?></p>
+					</li>
+					<li>
+						<h3>所在单位:</h3>
+						<p><?php echo $expert['company'] ?></p>
+					</li>
+					<li>
+						<h3>研究方向:</h3>
+						<p><?php echo $expert['domain'] ?></p>
+					</li>
+					<li>
+						<h3>专家类型:</h3>
+						<p><?php echo $expert['type'] ?></p>
+					</li>
+				</ul>
+				<a id="get_btn" href="javascript:;">联系专家</a>
+			</div>
+			<div class="reports_details_body_right expert_detail_body_right">
+				<h4>简历介绍:</h4>
+				<div class="descr"><?php echo $expert['resume'] ?></div>
+                <?php if($expert['project']):?>
+                    <h4>科研项目:</h4>
+                    <div class="descr"><?php echo $expert['project'] ?></div>
+                <?php endif;?>
+				<h4>代表论著:</h4>
+				<div class="descr"><?php echo $expert['works'] ?></div>
+			</div>
+		</div>
+        <div style="height:30px;"></div>
+	</div>
+</div>
+
+<!-- 专家模态框 -->
+<div id="expert_module" class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>联系专家</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="prev">下一步</button>
+        </div>
+    </div>
+</div>
+
+<div id="expert_module2" class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>联系专家</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>具体需求</label>
+                <div class="snail_module_input"><textarea rows="8" placeholder="" id="specific_need"></textarea></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit">提交</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript">
+    var uid = "<?php echo $uid?>";
+    var conn_uid = "<?php echo $conn_main?>";
+	$(function() {
+        var name = '', company = '', email = '', phone = '', majorNeed = '';
+        $('#get_btn').click(function() {
+            if(!uid){
+                tips('请先登录');
+                return;
+            }
+            if(!conn_uid){
+                $('#expert_module').attr('data-status', 'show');
+            }else{
+                $('#expert_module2').attr('data-status', 'show');
+            }
+        });
+        $('#prev').click(function() {
+            name = $.trim($('#name').val());
+            company = $.trim($('#company').val());
+            email = $.trim($('#email').val());
+            phone = $.trim($('#phone').val());
+            $.ajax({
+                type: 'post',
+                url: '/user/add_connect_user',
+                data: {
+                    username: name,
+                    company: company,
+                    email: email,
+                    phone: phone,
+                    is_main:1
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#module').attr('data-status', 'hide');
+                    if(data['status'] == 1){
+                        conn_uid = data['user']['id'];
+                        $('#expert_module').attr('data-status', 'hide');
+                        $('#expert_module2').attr('data-status', 'show');
+                    }else{
+                        tips(data['error']);
+                    }
+                }
+            })
+        });
+        $('#submit').click(function() {
+            var specificNeed = $.trim($('#specific_need').val());
+            if(!specificNeed){
+                tips('请填写具体需求');
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '/user/add_expert_order',
+                data: {
+                    eid:"<?php echo $expert['id']?>",
+                    conn_uid:conn_uid,
+                    title:"<?php echo $expert['name']?>",
+                    solution:specificNeed
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if(data['status'] == -1){
+                        tips(data['error']);
+                    }else{
+                        $('#expert_module2').attr('data-status', 'hide');
+                        tips2();
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        });
+    });
+</script>

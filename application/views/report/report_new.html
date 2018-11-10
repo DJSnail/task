@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>新建领域快报</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-datetime/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-datetime/js/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-datetime/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>新建领域快报</h2>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<div class="form_group">
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">模版选择</h3>
+					<div class="group_content" style="width:220px;">
+						<select id="collect_channel" class="selectpicker show-tick">
+							<option value="0">新建模版</option>
+							<option value="1">bull</option>
+							<option value="2">dgdsagsd</option>
+							<option value="3">cvbcvnxc</option>
+						</select>
+					</div>
+					<div class="float_left">
+						<button type="button" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">报告名称</h3>
+					<div class="group_content">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">发布时间</h3>
+					<div class="group_content">
+						<input type="text" class="form-control" readonly id="datetime">
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">完成单位</h3>
+					<div class="group_content">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">主编</h3>
+					<div class="group_content">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">版权信息</h3>
+					<div class="group_content">
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">学科分类</h3>
+					<div class="group_content">
+						<div class="group_content_items">
+							<div class="group_content_item"><span>创意农业 </span><span class="close_btn">&times;</span></div>
+							<div class="group_content_item"><span>创意农业 </span><span class="close_btn">&times;</span></div>
+							<div class="group_content_item"><span>创意农业 </span><span class="close_btn">&times;</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title"></h3>
+					<div class="group_content">
+						<div class="select_menu_checkbox_drop">
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>创意农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>加工农业</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>高效农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>无公害农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>订单农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>品牌农业</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>特色农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>循环农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>设施农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>观光休闲</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>都市农业</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form_group_input clearfix">
+					<h3 class="group_title">报告简介</h3>
+					<div class="group_content">
+						<textarea class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form_group_input clearfix" style="padding: 50px 0px;">
+					<button type="button" class="btn btn-primary">提交</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+		<script type="text/javascript">
+			$("#datetime").datetimepicker({
+				format: 'yyyy-mm-dd hh:ii:ss',
+				autoclose: true,
+        		todayBtn: true
+			});
+		</script>
+	</body>
+</html>

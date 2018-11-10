@@ -1,0 +1,119 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.slider.css?v=<?=$v?>">
+
+<div class="floor_descr">
+	<div class="wrap">
+		<div class="descr">
+			<h2>文献传递申请</h2>
+			<h3>为方便用户获取用于研究或学习目的的少量文献，本平台依托NSTL及六家成员单位的资源及协作关系，提供远程全文文献的快速查询、获取和传递服务。</h3>
+		</div>
+	</div>
+</div>
+
+<div class="floor_form">
+	<div class="wrap clearfix">
+		<div class="left_form">
+			<div class="row_group clearfix">
+				<div class="col_group">
+					<div class="title"><h3>姓名</h3><a target="_blank">+更换常用联系人</a></div>
+					<div class="input"><input type="text" placeholder="请输入姓名"></div>
+				</div>
+				<div class="col_group">
+					<div class="title"><h3>邮箱</h3></div>
+					<div class="input"><input type="text" placeholder="请输入邮箱"></div>
+				</div>
+			</div>
+			<div class="row_group clearfix">
+				<div class="col_group">
+					<div class="title"><h3>机构名称</h3></div>
+					<div class="input"><input type="text" placeholder="请输入机构名称"></div>
+				</div>
+				<div class="col_group">
+					<div class="title"><h3>联系电话</h3></div>
+					<div class="input clearfix">
+						<div class="phone_area"><select><option value="+2354">+2354</option></select></div>
+						<div class="phone_number"><input type="text" placeholder="请输入联系电话"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row_group clearfix" style="padding-top: 50px;">
+				<div class="col_group">
+					<div class="title"><h3>标题</h3></div>
+					<div class="input">
+						<select><option value="0">请选择标题</option><option value="volvo">Volvo</option></select>
+					</div>
+				</div>
+				<div class="col_group">
+					<div class="title"><h3>期刊名</h3></div>
+					<div class="input"><input type="text" placeholder="请填写期刊名"></div>
+				</div>
+			</div>
+			<div class="row_group clearfix">
+				<div class="col_group">
+					<div class="title"><h3>年代</h3></div>
+					<div class="input"><input type="text" placeholder="请填写年代"></div>
+				</div>
+				<div class="col_group">
+					<div class="title"><h3>年卷期</h3></div>
+					<div class="input">
+						<select><option value="0">请选择年卷期</option><option value="volvo">Volvo</option></select>
+					</div>
+				</div>
+			</div>
+			<div class="row_group clearfix">
+				<div class="col_group" style="width: 650px;">
+					<div class="title"><h3>备注</h3></div>
+					<div class="input"><textarea placeholder="请填写备注"></textarea></div>
+				</div>
+			</div>
+			<div class="row_group">
+				<div id="move_bar"></div>
+			</div>
+			<div class="row_group" style="padding-top: 50px;">
+				<button type="button" class="submit_form">提交</button>
+			</div>
+		</div>
+		<div class="right_service">
+			<h2>服务说明</h2>
+			<ul class="service_list">
+				<li><p>传递时间：3个工作日以内</p></li>
+				<li><p>传递费用：中文5元/篇</p></li>
+				<li><p style="text-indent: 70px;">外文10元/篇</p></li>
+				<li><p>服务邮箱：service@nstl.gov.cn</p></li>
+				<li><p>联系电话：010-58882057</p></li>
+			</ul>
+			<h2>其他服务</h2>
+			<ul class="service_btn">
+				<li class="btn1"><a target="_blank">科技查新</a></li>
+				<li class="btn2"><a target="_blank">专题检索</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div style="height: 50px;"></div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/jquery.slider.min.js"></script>
+<script type="text/javascript">
+	// 拖动滑块
+    $("#move_bar").slider({
+        width: 340, // width
+        height: 40, // height
+        sliderBg: "rgb(134, 134, 131)", // 滑块背景颜色
+        color: "#fff", // 文字颜色
+        fontSize: 14, // 文字大小
+        bgColor: "#33CC00", // 背景颜色
+        textMsg: "按住滑块，拖拽验证", // 提示文字
+        successMsg: "验证通过了哦", // 验证成功提示文字
+        successColor: "#fff", // 滑块验证成功提示文字颜色
+        time: 400, // 返回时间
+        callback: function (result) { // 回调函数，true(成功),false(失败)
+            if (result) {
+                move_slider = true;
+            }
+        }
+    });
+</script>

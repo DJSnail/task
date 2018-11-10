@@ -1,0 +1,109 @@
+
+	<link rel="stylesheet" href="/static/admin/Plugins/zTree3/css/demo.css" type="text/css">
+	<link rel="stylesheet" href="/static/admin/Plugins/zTree3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<!-- <script type="text/javascript" src="/static/Plugins/zTree3/js/jquery-1.4.4.min.js"></script> -->
+	<script type="text/javascript" src="/static/admin/Plugins/zTree3/js/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="/static/admin/Plugins/zTree3/js/jquery.ztree.excheck.js"></script>
+	<script type="text/javascript" src="/static/admin/Plugins/zTree3/js/jquery.ztree.exedit.js"></script>
+	<script type="text/javascript">
+		var setting = {
+			// edit: {
+			// 	enable: true
+			// },
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				onClick: editOnClick
+			}
+		};
+
+		function editOnClick(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getSelectedNodes();
+
+			var id,pid,pname,names,controllers,actions,modules;
+			// console.log(nodes[0].id);
+			
+			if(nodes[0].id==1){
+				alert('不允许修改根节点');
+				return;
+			}
+
+			if(nodes[0].parentTId){
+				var parentInfo = zTree.getNodeByTId(nodes[0].parentTId);
+				pid 	= parentInfo.id;
+				pname 	= parentInfo.name;
+			}
+		
+			names 	= nodes[0].name;
+			id 		= nodes[0].id;
+
+			$("#pid").val(nodes[0].pId);
+
+			$("#id").val(nodes[0].id);
+			$("#pname").val(pname);
+			$("form[name=form_add]").find("input[name=name]").val(nodes[0].name);
+
+			$.ajax({
+		        type: "POST",
+		        url: "get_one_node",
+		        data: {id:id},
+		        dataType: 'json',
+		        success: function(data) {
+		            if(data.status=="200"){
+						$("form[name=form_add]").find("input[name=menu_url]").val(data.data.menu_url);
+						$("form[name=form_add]").find("input[name=icon]").val(data.data.icon);
+						$("form[name=form_add]").find("input[name=sort]").val(data.data.sort);
+						$("form[name=form_add]").find("input[name=is_show][value="+data.data.is_show+"]").attr('checked',true);
+		            }
+		        }
+		    }); 
+		
+		}
+
+		function beforeDrag(treeId, treeNodes) {
+			return false;
+		}
+		
+		function setEdit() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		}
+		// //增加节点
+		var newCount = 1;
+		var maxId = 0;
+		function add(e) {
+			var maxId = $('#max_id').val();
+			alert(maxId);
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			isParent = e.data.isParent,
+			nodes = zTree.getSelectedNodes(),
+			treeNode = nodes[0];
+
+			if (treeNode) {
+				treeNode = zTree.addNodes(treeNode, {id:(maxId -(-newCount)), pId:treeNode.id, isParent:isParent, name:"new node" + treeNode.id + (newCount++)});
+			} else {
+				treeNode = zTree.addNodes(null, {id:(maxId -(-newCount)), pId:0, isParent:isParent, name:"new node" + (newCount++)});
+			}
+
+			if (treeNode) {
+				zTree.editName(treeNode[0]);
+			} else {
+				alert("叶子节点被锁定，无法增加子节点");
+			}
+		};
+		function showCode(str) {
+			var code = $("#code");
+			code.empty();
+			for (var i=0, l=str.length; i<l; i++) {
+				code.append("<li>"+str[i]+"</li>");
+			}
+		}
+
+		
+	</script>
+
+

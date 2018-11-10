@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>订单管理</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>订单详情</h2>
+				</div>
+				<div class="header_time float_left">
+					<p class="float_left">提交时间：</p>
+					<p class="float_left">2018/12/05 12:00:21</p>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<ul class="nav nav-tabs body_tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#order" aria-controls="order" role="tab" data-toggle="tab">订单内容</a>
+				</li>
+				<li role="presentation">
+					<a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">联系人</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="order">
+					<div class="form_group">
+						<div class="form_group_text clearfix">
+							<h3 class="group_title">订单状态：</h3>
+							<p class="group_content">待处理</p>
+						</div>
+						<div class="form_group_text clearfix">
+							<h3 class="group_title">提交时间：</h3>
+							<p class="group_content">2018/12/01 12:00</p>
+						</div>
+						<div class="form_group_text clearfix">
+							<h3 class="group_title">处理时间：</h3>
+							<p class="group_content">2018/12/01 12:00</p>
+						</div>
+						<div class="form_group_text clearfix">
+							<h3 class="group_title">处理人：</h3>
+							<p class="group_content">张伟</p>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">附件上传：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+							<div class="float_left">
+								<button id="uploader" type="button" class="btn btn-primary">上传</button>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title" style="line-height: 100%;">处理意见：</h3>
+							<div class="float_left" style="width: 540px;">
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form_group_input" style="padding: 50px 0px;">
+							<!-- 
+							没有【上传附件】不能点【完成】
+							没有填【处理意见】不能点【撤销】
+							【待处理】状态时按钮为【接单】
+							【处理中】状态时按钮为【完成】 【已完成】状态时按钮为【完成】变为灰色 【撤销】状态时按钮为【完成】【撤销】变为灰色
+							 -->
+							<button type="button" class="btn btn-primary">接单</button>
+							<button type="button" class="btn btn-primary">完成</button>
+							<button type="button" class="btn btn-primary">撤销</button>
+							<button type="button" class="btn btn-default">取消</button>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="contact">
+					<div class="form_group">
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">主联系人：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">工作单位：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">手机号码：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">邮箱：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div style="height: 15px; background-color: #f7f7f7;"></div>
+					<div class="form_group">
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">相关联系人1：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">工作单位：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">手机号码：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">邮箱：</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/static/lib/plupload/plupload.full.min.js"></script>
+		<script type="text/javascript" src="/static/lib/plupload/plupload.js"></script>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				pluploadFile('uploader', '10mb')
+			})
+		</script>
+	</body>
+</html>

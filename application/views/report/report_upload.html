@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>编辑文章</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/utf8-php/ueditor.config.js"></script>
+		<script type="text/javascript" src="/static/lib/utf8-php/ueditor.all.min.js"></script>
+		<script type="text/javascript" src="/static/lib/utf8-php/lang/zh-cn/zh-cn.js"></script>
+	</head>
+	<body>
+		<div class="edit_body clearfix">
+			<div class="edit_body_left">
+				<div class="header">
+					<div class="clearfix">
+						<div class="header_title float_left">
+							<h2>编辑文章</h2>
+						</div>
+					</div>
+					<div class="clearfix">
+						<div class="header_edit_input clearfix">
+							<h3 class="edit_title">标题</h3>
+							<div class="edit_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="header_edit_input clearfix">
+							<h3 class="edit_title">作者</h3>
+							<div class="edit_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="header_edit_input clearfix">
+							<h3 class="edit_title">单位</h3>
+							<div class="edit_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="body">
+					<script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
+				</div>
+			</div>
+			<div class="edit_body_right">
+				<div class="edit_body_item">
+					<h3 class="item_title">操作</h3>
+					<ul class="item_content">
+						<li class="item_content_info clearfix">
+							<h4 class="info_title">编辑状态：</h4>
+							<p class="info_content">发布中</p>
+						</li>
+						<li class="item_content_info clearfix">
+							<h4 class="info_title">发布日期：</h4>
+							<p class="info_content">2018/12/03 12:00:30</p>
+							<a class="add_btn float_left" href="javascript:;">编辑</a>
+						</li>
+						<li class="item_content_info clearfix">
+							<h4 class="info_title">编辑日期：</h4>
+							<p class="info_content">2018/12/03 12:00:30</p>
+						</li>
+						<li class="item_content_info clearfix">
+							<h4 class="info_title">操作员：</h4>
+							<p class="info_content">张伟</p>
+						</li>
+					</ul>
+					<div class="item_button clearfix">
+						<span class="del_btn">删除</span>
+						<button type="button" class="btn btn-primary btn-sm float_right">提交</button>
+					</div>
+				</div>
+				<div class="edit_body_item">
+					<h3 class="item_title">栏目</h3>
+					<div class="item_content">
+						<div class="item_content_items">
+							<div class="item_content_item"><span>创意农业</span><span class="close_btn">&times;</span></div>
+						</div>
+						<div class="select_menu_checkbox_drop">
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>创意农业</span></div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>高效农业</span></div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>特色农业</span></div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>都市农业</span></div>
+							</div>
+						</div>
+					</div>
+					<a class="add_btn" href="javascript:;" style="margin-top:8px;">+增加栏目</a>
+				</div>
+				<div class="edit_body_item">
+					<h3 class="item_title">分类</h3>
+					<div class="item_content">
+						<div class="item_content_items">
+							<div class="item_content_item"><span>未分类</span></div>
+						</div>
+						<div class="select_menu_checkbox_drop">
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>创意农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>加工农业</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>高效农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>无公害农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>订单农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>品牌农业</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>特色农业</span></div>
+								<div class="menu_two">
+									<div class="menu_two_item"><input type="checkbox"><span>循环农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>设施农业</span></div>
+									<div class="menu_two_item"><input type="checkbox"><span>观光休闲</span></div>
+								</div>
+							</div>
+							<div class="menu_one">
+								<div class="menu_one_item"><input type="checkbox"><span>都市农业</span></div>
+							</div>
+						</div>
+					</div>
+					<a class="add_btn" href="javascript:;" style="margin-top:8px;">+增加分类</a>
+				</div>
+				<div class="edit_body_item">
+					<h3 class="item_title">上传封面</h3>
+					<div class="item_content">
+						<div id="uploader" class="uploader">
+							<p class="uploader_text">+点击上传封面</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/static/lib/plupload/plupload.full.min.js"></script>
+		<script type="text/javascript" src="/static/lib/plupload/plupload.js"></script>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+		<script type="text/javascript">
+			var ue = UE.getEditor('editor');
+			pluploadFile('uploader', '10mb')
+		</script>
+	</body>
+</html>

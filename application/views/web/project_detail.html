@@ -1,0 +1,172 @@
+		
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+			<a href="/">首页</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <a href="/home/achievement">成果对接</a>
+			<a href="javascript:;">&gt;&gt;</a>
+			<a href="/project">项目合作</a>
+		</div>
+        <h1 class="detail_title"><?php echo $project["name"]?></h1>
+		<div class="reports_details_body clearfix">
+			<div class="reports_details_body_left project_details_body_left">
+				<ul class="info">
+					<li>
+						<h3>项目委托方:</h3>
+						<p><?php echo $project["entrust_org"]?></p>
+					</li>
+					<li>
+						<h3>项目预算:</h3>
+						<p><?php echo $project["price"]?></p>
+					</li>
+					<li>
+						<h3>招标开始日期:</h3>
+						<p><?php echo $project["start_time"]?></p>
+					</li>
+					<li>
+						<h3>招标截止日期:</h3>
+						<p><?php echo $project["end_time"]?></p>
+					</li>
+                    <li>
+                        <h3>项目联系人:</h3>
+                        <p><?php echo $project["conn_user"]?></p>
+                    </li>
+                    <li>
+                        <h3>联系方式:</h3>
+                        <p><?php echo $project["conn_phone"]?></p>
+                    </li>
+                    <li>
+                        <h3>项目分类:</h3>
+                        <p><?php echo $project["type"]?></p>
+                    </li>
+				</ul>
+				<a href="<?php echo $project['website']?>" target="_blank">项目原地址</a>
+                <!--<a class="btn2" id="get_btn" href="javascript:;">申请成果转化</a>-->
+			</div>
+			<div class="reports_details_body_right project_details_body_right">
+				<h4>项目信息:</h4>
+				<div class="descr">
+                    <?php echo my_strip_tags($project["descri"])?>
+                </div>
+			</div>
+		</div>
+        <div style="height:30px;"></div>
+	</div>
+</div>
+
+<div style="height:100px;"></div>
+
+<!-- 模态框 -->
+<div class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>联系专家</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit">提交</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript">
+    var uid = "<?php echo $uid?>";
+    var conn_uid = "<?php echo $conn_main?>";
+    var rid = "<?php echo $project['id']?>";
+    var sub = true;
+
+    $('#get_btn').click(function () {
+        return;
+        if(!uid){
+            tips('请先登录');
+            return;
+        }
+        if(!conn_uid){
+            $('#module').attr('data-status', 'show');
+        }else{
+            submit_order(conn_uid);
+        }
+
+    });
+    //添加一个新的主联系人
+    $('#submit_module').click(function () {
+        var name = $.trim($('#name').val()), company = $.trim($('#company').val()),
+                email = $.trim($('#email').val()), phone = $.trim($('#phone').val());
+        if(!name || !company || !email || !phone ) {
+            tips('信息没输入完哦');
+            $('#module').attr('data-status', 'hide');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/add_connect_user',
+            data: {
+                username: name,
+                company: company,
+                email: email,
+                phone: phone,
+                is_main:1
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#module').attr('data-status', 'hide');
+                if(data['status'] == 1){
+                    conn_uid = data['user']['id'];
+                    submit_order(conn_uid);
+                }else{
+                    tips(data['error']);
+                }
+            },
+            error: function() {
+
+            }
+        })
+    });
+    function submit_order(conn_uid){
+        if(!sub){
+            tips('请勿重复提交购买');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/add_project_order',
+            data: {
+                rid:rid,
+                conn_uid:conn_uid,
+                title:"<?php echo $project['name']?>"
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data['status'] == 1){
+                    tips2();
+                    sub = false;
+                }else{
+                    tips(data['error']);
+                }
+            },
+            error: function() {
+
+            }
+        })
+    }
+</script>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>采集任务</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>采集任务（203）</h2>
+				</div>
+				<div class="header_button float_left">
+					<a href="/task/create_task" class="btn btn-primary">新建任务</a>
+				</div>
+				<div class="header_search float_right">
+				  <input type="text" class="form-control">
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="header_batch float_left">
+					<a class="color_primary" href="javascript:;">批量停用</a>
+					<a class="color_danger" href="javascript:;">批量删除</a>
+				</div>
+				<div class="header_button float_right">
+					<button type="button" class="btn btn-primary" data-state="normal" onclick="onCollectScreen(this, 'collect_type', 'collect_channel')">筛选</button>
+				</div>
+				<div class="header_select float_right">
+					<select id="collect_type" class="selectpicker show-tick">
+						<option value="0">查看所有类型</option>
+						<option value="1">bull</option>
+						<option value="2">dgdsagsd</option>
+						<option value="3">cvbcvnxc</option>
+					</select>
+				</div>
+				<div class="header_select float_right">
+					<select id="collect_channel" class="selectpicker show-tick">
+						<option value="0">查看来源机构</option>
+						<option value="1">bull</option>
+						<option value="2">dgdsagsd</option>
+						<option value="3">cvbcvnxc</option>
+					</select>
+				</div>
+				<div class="header_delete float_right">
+					<a href="javascript:;">已删除文章（209）</a>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<div class="table-responsive body_table body_table_collect">
+				<table class="table table-striped">
+					<thead id="thead">
+						<tr>
+							<th><div style="min-width:20px;"><input id="select_all" type="checkbox"></div></th>
+							<th><div style="min-width:200px;">任务</div></th>
+							<th><div style="min-width:80px;">来源机构</div></th>
+							<th><div style="min-width:80px;">更新文章</div></th>
+							<th><div style="min-width:55px;"></div></th>
+							<th><div style="min-width:310px;">更新状态</div></th>
+							<th><div style="min-width:350px;">最新更新文章</div></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<tr class="tag_one" data-id="1">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>
+								<h3 style="width:200px;">中国生物工程学会所中国生物工程学会所</h3>
+								<div class="ctrl_btns">
+									<span class="color_danger">停用</span>
+									<span class="color_primary">设置</span>
+									<span class="color_primary">删除</span>
+								</div>
+							</div></td>
+							<td><div>项目论述</div></td>
+							<td><div class="color_primary">766546</div></td>
+							<td><div><span class="state_running">运行中</span></div></td>
+							<td><div class="text_left">
+								<div class="state_info clearfix">
+									<span>上次有更新&nbsp;</span>
+									<span class="color_primary">1小时前</span>
+									<span>，预计下次检测&nbsp;</span>
+									<span class="color_primary">40分钟后</span>
+								</div>
+							</div></td>
+							<td><div class="text_left">
+								<a href="javascript:;">
+									饶子和/王祥喜研究团队合作解析单纯疱疹病毒2型成熟核衣壳高分辨率三维结构，揭示疱疹病毒的组装和稳定性机制 
+								</a>
+							</div></td>
+						</tr>
+						<tr class="tag_two" data-id="2">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>
+								<h3 style="width:200px;">中国生物工程学会所中国生物工程学会所</h3>
+								<div class="ctrl_btns">
+									<span class="color_primary">启用</span>
+									<span class="color_primary">设置</span>
+									<span class="color_primary">删除</span>
+								</div>
+							</div></td>
+							<td><div>项目论述</div></td>
+							<td><div class="color_primary">766546</div></td>
+							<td><div><span class="state_stopping">停用中</span></div></td>
+							<td><div class="text_left">
+								<div class="state_info clearfix">
+									<span>上次有更新&nbsp;</span>
+									<span class="color_primary">1小时前</span>
+									<span>，预计下次检测&nbsp;</span>
+									<span class="color_primary">40分钟后</span>
+								</div>
+								<div class="state_info clearfix">
+									<span>发生错误:&nbsp;</span>
+									<a class="err_url" href="javascript:;">http://baidu.com/asdijoi/asssfdfffdssss</a>
+									<span class="err_ignore">&nbsp;[忽略]</span>
+								</div>
+							</div></td>
+							<td><div class="text_left">
+								<a href="javascript:;">
+									饶子和/王祥喜研究团队合作解析单纯疱疹病毒2型成熟核衣壳高分辨率三维结构，揭示疱疹病毒的组装和稳定性机制 
+								</a>
+							</div></td>
+						</tr>
+						<tr data-id="3">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>
+								<h3 style="width:200px;">中国生物工程学会所中国生物工程学会所</h3>
+								<div class="ctrl_btns">
+									<span class="color_primary">启用</span>
+									<span class="color_primary">设置</span>
+									<span class="color_primary">删除</span>
+								</div>
+							</div></td>
+							<td><div>项目论述</div></td>
+							<td><div class="color_primary">766546</div></td>
+							<td><div><span class="state_stopping">停用中</span></div></td>
+							<td><div class="text_left">
+								<div class="state_info clearfix">
+									<span>上次有更新&nbsp;</span>
+									<span class="color_primary">1小时前</span>
+									<span>，预计下次检测&nbsp;</span>
+									<span class="color_primary">40分钟后</span>
+								</div>
+								<div class="state_info clearfix">
+									<span>发生错误:&nbsp;</span>
+									<a class="err_url" href="javascript:;">无法打开网址</a>
+									<span class="err_ignore">&nbsp;[忽略]</span>
+								</div>
+							</div></td>
+							<td><div class="text_left">
+								<a href="javascript:;">
+									饶子和/王祥喜研究团队合作解析单纯疱疹病毒2型成熟核衣壳高分辨率三维结构，揭示疱疹病毒的组装和稳定性机制 
+								</a>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="footer clearfix">
+			<ul id="page" class="footer_page">
+				<li class="item" data-tar="prev" data-num="0"><span><i class="glyphicon glyphicon-chevron-left"></i>上一页</span></li>
+				<li class="item active" data-tar="item" data-num="1"><span>1</span></li>
+				<li class="item" data-tar="item" data-num="2"><span>2</span></li>
+				<li class="item" data-tar="item" data-num="3"><span>3</span></li>
+				<li class="item" data-tar="item" data-num="4"><span>4</span></li>
+				<li class="item" data-tar="next" data-num="0"><span>下一页<i class="glyphicon glyphicon-chevron-right"></i></span></li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+	</body>
+</html>

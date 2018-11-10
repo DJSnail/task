@@ -1,0 +1,323 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<style>
+    .text-algin{
+        padding-top: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+<div class="row">
+    <div class="col-md-12 btn-area">
+        <div class="btn-group pull-left" role="group" aria-label="...">
+            
+        </div>
+    </div>
+</div>
+
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:;">
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家编号</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['expert_no']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家名称</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['name']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家单位</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['company']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家类型</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['type']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家手机</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['phone']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>办公电话</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['fixed_phone']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家邮箱</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['email']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>研究领域</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['domain']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家地址</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['location']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家职务</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['job']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>职称</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['title']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>科研项目</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['project']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>代表论著</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$expert['works']?>
+                    </div>
+                    <div class="col-sm-6">
+                        <em></em>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font></label>
+                    <div class="col-sm-4">
+                        <div  style="width:220px;height: 150px; border:1px #e4e4e4 solid; overflow: hidden;">
+                            <img src="<?=$expert['pic']?>" width="220" height="150" id="show_img">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>专家简历</label>
+                    <div class="col-sm-8 text-algin">
+                        <?=$expert['resume']?>
+                    </div>
+                    <div class="col-sm-4">
+                        <em></em>
+                    </div>
+                </div>
+				
+			   <?php if($main_name):?>
+               <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主要联系人姓名</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$main_name['username']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主要联系人邮箱</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$main_name['email']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主要联系人电话</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$main_name['phone']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>主要联系人公司</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$main_name['company']?>
+                    </div>
+                    <div class="col-sm-6">
+                       
+                    </div>
+                </div>
+				<?php endif;?>
+				<?php if($other_name):?>
+				<?php foreach ($other_name as $val):?>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>其他联系人姓名</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$val['username']?>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>其他联系人邮箱</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$val['email']?>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>其他联系人电话</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$val['phone']?>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>其他联系人公司</label>
+                    <div class="col-sm-4 text-algin">
+                        <?=$val['company']?>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+                <?php endforeach;?>
+				<?php endif;?>
+
+                <input type="hidden" name="id" value="<?=$expert['id']?>">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>审核结果</label>
+                    <div class="col-sm-6 ">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($expert['status']==1):?> checked <?php endif;?>  value="1" >审核中
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($expert['status']==3):?> checked <?php endif;?> value="3" >审核通过
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" <?php if($expert['status']==2):?> checked <?php endif;?> value="2" >驳回
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                    
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+<script type="text/javascript">
+    $(function(){
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            ajaxRequest({'form_data':data},'/admin/expert/change_verify','save_data','POST',3);
+            return false;
+        });
+
+        
+    });
+</script>

@@ -1,0 +1,85 @@
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<style>
+    .text-algin{
+        padding-top: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <div class="info-center">
+                <div class="page-header">
+                    <div class="pull-left ">
+                        <h4><?=$pageTitle?></h4>
+                    </div>
+                    <div class="pull-right" style="margin-top: 15px;">
+                        <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+                    </div>
+                </div>
+                <div class="indentify-class" style="margin-top:15px;">
+                    <p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                            <?=$pageTips?>
+                        <?php endif;?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能区 -->
+
+<div class="row" id="main_div" style="overflow-y: scroll;">
+    <div class="col-md-12" id="child_div">
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" name="add_form" onsubmit="javascript:;">
+               
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right"><font color="red"></font>处理意见附件</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="upload_file_path" required placeholder="文件地址" disabled="">
+                            <input type='hidden' name="upload_file_name" value="" disabled="">
+                            <input type='hidden' name="upload_file_id" value="">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="upload_file">上传文件</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <em><font color="red">*</font>支持txt/log/json格式,最大不超过10M</em>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                      <button class="btn btn-danger" id="save_data" type="submit">保存</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="btn btn-default " id="cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/admin/js/resizewindow.js?v=<?=$version?>"></script>
+
+<?php $this->load->view('public/plupload.html');?>
+
+<script> plupFile('tech/add_tech','upload_file','upload_file','10mb','txt,log,json'); </script>
+<!-- 文件上传 加载js -->
+
+<script type="text/javascript">
+    $(function(){
+        //保存
+        $('#save_data').on('click',function(){
+            var data = $('form[name=add_form]').serialize();
+            ajaxRequest({'form_data':data},'/admin/requirement/save','save_data','POST',3);
+            return false;
+        });
+
+        
+    });
+</script>
+

@@ -1,0 +1,91 @@
+		
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+			<a href="/">首页</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <a href="/home/achievement">成果对接</a>
+			<a href="javascript:;">&gt;&gt;</a>
+			<a href="/requirement">专利技术</a>
+		</div>
+		<div class="reports_details_body clearfix">
+			<div class="reports_details_body_left project_details_body_left">
+				<ul class="info">
+					<li>
+						<h3>申请号:</h3>
+						<p><?php echo $tech["apply_no"]?></p>
+					</li>
+					<li>
+						<h3>申请人国别码:</h3>
+						<p><?php echo $tech["apply_country"]?></p>
+					</li>
+					<li>
+						<h3>主分类号:</h3>
+						<p><?php echo $tech["category_no"]?></p>
+					</li>
+					<li>
+						<h3>IPC:</h3>
+						<p><?php echo $tech["ipc"]?></p>
+					</li>
+                    <li>
+                        <h3>公开号:</h3>
+                        <p><?php echo $tech["public_no"]?></p>
+                    </li>
+                    <li>
+                        <h3>申请日:</h3>
+                        <p><?php echo $tech["apply_time"]?></p>
+                    </li>
+                    <li>
+                        <h3>公开日:</h3>
+                        <p><?php echo $tech["public_time"]?></p>
+                    </li>
+				</ul>
+                <a class="btn2" href="javascript:;">申请成果转化</a>
+			</div>
+			<div class="reports_details_body_right project_details_body_right">
+                <h2><?php echo $tech['title_en']?></h2>
+				<h4>摘要:</h4>
+				<div class="descr">
+                    <?php echo my_strip_tags($tech["abstract_en"])?>
+                </div>
+			</div>
+		</div>
+        <div style="height:30px;"></div>
+	</div>
+</div>
+
+<!-- 模态框 -->
+<div class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>联系专家</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit">提交</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript">
+	
+</script>

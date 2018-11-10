@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>订单管理</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>订单管理（2090）</h2>
+				</div>
+				<div class="header_search float_right">
+					<input type="text" class="form-control">
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="header_button float_right">
+					<button type="button" class="btn btn-primary" data-state="normal" onclick="onOrderScreen(this, 'order_type')">筛选</button>
+				</div>
+				<div class="header_select float_right">
+					<select id="order_type" class="selectpicker show-tick">
+						<option value="0">查看所有类型</option>
+						<option value="1">bull</option>
+						<option value="2">dgdsagsd</option>
+						<option value="3">cvbcvnxc</option>
+					</select>
+				</div>
+				<div class="header_delete float_right">
+					<a href="./order_deleted.html">已删除订单（12）</a>
+				</div>
+			</div>
+		</div>
+		<div class="body">
+			<div class="table-responsive body_table">
+				<table class="table table-striped">
+					<thead id="thead">
+						<tr>
+							<th><div style="min-width:20px;"><input id="select_all" type="checkbox"></div></th>
+							<th><div style="min-width:130;">订单号</div></th>
+							<th><div style="min-width:200;">主题</div></th>
+							<th><div style="min-width:150;">服务类型</div></th>
+							<th><div style="min-width:200;">单位</div></th>
+							<th><div style="min-width:150;">提交时间</div></th>
+							<th><div style="min-width: 65px;">订单状态</div></th>
+							<th><div style="min-width: 120px;">操作</div></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						<tr data-id="1">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>ZLFY201801111</div></td>
+							<td><div>
+								<a href="javascript:;">东北立信科技园区产业规划</a>
+							</div></td>
+							<td><div>产业态势与趋势分析</div></td>
+							<td><div>中国科学院农业科学研究所</div></td>
+							<td><div>2018/11/02 12:50:00</div></td>
+							<td><div class="color_danger">待处理</div></td>
+							<td><div>
+								<a href="javascript:;" class="button color_primary">接单</a>
+								<a href="javascript:;" class="button color_delete">删除</a>
+							</div></td>
+						</tr>
+						<tr data-id="2">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>ZLFY201801111</div></td>
+							<td><div>
+								<a href="javascript:;">东北立信科技园区产业规划</a>
+							</div></td>
+							<td><div>产业态势与趋势分析</div></td>
+							<td><div>中国科学院农业科学研究所</div></td>
+							<td><div>2018/11/02 12:50:00</div></td>
+							<td><div class="color_warning">处理中</div></td>
+							<td><div>
+								<a href="./order_detail.html" class="button color_default">查看</a>
+								<a href="javascript:;" class="button color_delete">删除</a>
+							</div></td>
+						</tr>
+						<tr data-id="3">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>ZLFY201801111</div></td>
+							<td><div>
+								<a href="javascript:;">东北立信科技园区产业规划</a>
+							</div></td>
+							<td><div>产业态势与趋势分析</div></td>
+							<td><div>中国科学院农业科学研究所</div></td>
+							<td><div>2018/11/02 12:50:00</div></td>
+							<td><div class="color_success">已完成</div></td>
+							<td><div>
+								<a href="./order_detail.html" class="button color_default">查看</a>
+								<a href="javascript:;" class="button color_delete">删除</a>
+							</div></td>
+						</tr>
+						<tr data-id="4">
+							<td><div><input class="select_btn" type="checkbox"></div></td>
+							<td><div>ZLFY201801111</div></td>
+							<td><div>
+								<a href="javascript:;">东北立信科技园区产业规划</a>
+							</div></td>
+							<td><div>产业态势与趋势分析</div></td>
+							<td><div>中国科学院农业科学研究所</div></td>
+							<td><div>2018/11/02 12:50:00</div></td>
+							<td><div class="color_default">撤销</div></td>
+							<td><div>
+								<a href="./order_detail.html" class="button color_default">查看</a>
+								<a href="javascript:;" class="button color_delete">删除</a>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="footer clearfix">
+			<ul id="page" class="footer_page">
+				<li class="item" data-tar="prev" data-num="0"><span><i class="glyphicon glyphicon-chevron-left"></i>上一页</span></li>
+				<li class="item active" data-tar="item" data-num="1"><span>1</span></li>
+				<li class="item" data-tar="item" data-num="2"><span>2</span></li>
+				<li class="item" data-tar="item" data-num="3"><span>3</span></li>
+				<li class="item" data-tar="item" data-num="4"><span>4</span></li>
+				<li class="item" data-tar="next" data-num="0"><span>下一页<i class="glyphicon glyphicon-chevron-right"></i></span></li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+	</body>
+</html>

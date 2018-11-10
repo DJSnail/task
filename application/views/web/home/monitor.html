@@ -1,0 +1,24 @@
+			
+<?php $this->load->view('web/common/header_tab.html');?>
+
+<div class="floor_main">
+	<div class="wrap">
+		<div class="monitor_left"><img src="/static/image/home/monitor.png"></div>
+		<div class="monitor_right">
+			<div class="update_tips clearfix">
+				<div class="number"><p>更新产业动态：</p><span><?php echo $data["monitor_num"]?></span></div>
+				<div class="time float_left"><p>更新日期：</p><span><?php echo $data["update_time"]?></span></div>
+			</div>
+			<ul class="info_list">
+				<?php foreach($data['monitor_title'] as $title):?>
+				    <li><a href="javascript:;" target="_blank"><p style="color:#2d899c;float:left;margin-right: 15px;">●</p><?php echo $title?></a></li>
+                <?php endforeach;?>
+			</ul>
+			<div class="more"><a target="_blank" href="/monitor">更多细分领域信息&gt;&gt;</a></div>
+		</div>
+	</div>
+</div>
+
+<?php $this->load->view('web/common/footer_tab.html');?>
+
+

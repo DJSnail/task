@@ -1,0 +1,59 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>专家详情</h1>
+		<a onclick="window.history.back();" class="go_back">&lt;&nbsp;返回</a>
+	</header>
+	<article class="main_wrap">
+		<article class="detail_title">
+			<h2><?php echo $data["name"]?>&nbsp;&nbsp;<?php echo $data["company"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $data["add_time"]?></span>
+				<span class="label1">专家咨询</span>
+				<span class="label2"><?php echo $data["type"]?></span>
+			</div>
+		</article>
+		<article class="expert_detail">
+			<article class="expert_info clearfix">
+				<div class="expert_info_left">
+					<figure class="photo">
+						<img src="<?php echo $data['pic']?>" style="height:136px;">
+					</figure>
+					<!--<div class="button">
+						<a href="javascript:;" class="btn1">联系专家</a>
+						<a href="javascript:;" class="btn2">申请入驻</a>
+					</div>-->
+				</div>
+				<div class="expert_info_right">
+					<h3>姓名：</h3>
+					<p><?php echo $data["name"]?></p>
+					<h3>所在单位：</h3>
+					<p><?php echo $data["company"]?></p>
+					<h3>研究方向：</h3>
+					<p><?php echo $data["domain"]?></p>
+					<h3>专家类型</h3>
+					<p><?php echo $data["type"]?></p>
+				</div>
+			</article>
+			<article class="expert_intr">
+				<section>
+					<h3>简历介绍：</h3>
+					<p>
+						<?php echo $data["resume"]?>
+					</p>
+				</section>
+				<section>
+					<h3>承担科研项目情况：</h3>
+					<p>
+						<?php echo $data["project"]?>
+					</p>
+				</section>
+				<section>
+					<h3>获奖及荣誉：</h3>
+					<p>
+						<?php echo $data["works"]?>
+					</p>
+				</section>
+			</article>
+		</article>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

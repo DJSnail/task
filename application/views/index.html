@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="uft-8">
+		<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+		<title>后台管理</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<style type="text/css">
+			html,body{position: relative; width: 100%; height: 100%; overflow: hidden;}
+		</style>
+	</head>
+	<body>
+		<div class="main_menu">
+			<div class="main_logo">
+				<div class="main_logo_icon"><img src=""></div>
+			</div>
+			<div class="main_tree">
+				<ul class="main_tree_trunk">
+					<li class="main_tree_branches">
+						<p onclick="openWeb(this)" data-href="/static/order/order.html">订单管理</p>
+					</li>
+					<li class="main_tree_branches">
+						<h2 onclick="onClickTreeBranch(this)">网站采集</h2>
+						<ul class="main_tree_branch">
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="/task/task_list">采集任务</p>
+							</li>
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="/static/collect/collect.html">结果列表</p>
+							</li>
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="/static/collect/collect_log.html">采集日志</p>
+							</li>
+						</ul>
+					</li>
+					<li class="main_tree_branches">
+						<p onclick="openWeb(this)" data-href="">报告管理</p>
+					</li>
+					<li class="main_tree_branches">
+						<p onclick="openWeb(this)" data-href="">用户管理</p>
+					</li>
+					<li class="main_tree_branches">
+						<h2 onclick="onClickTreeBranch(this)">相关设置</h2>
+						<ul class="main_tree_branch">
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="">机构设置</p>
+							</li>
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="">栏目设置</p>
+							</li>
+							<li class="main_tree_leaf">
+								<p onclick="openWeb(this)" data-href="">分类设置</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="main_head">
+			<div id="user" class="main_user">
+				<span id="user_arrow" class="main_user_arrow"></span>
+				<p class="main_user_name"><?=$user['nickname']?></p>
+				<div class="main_user_photo"><img src="<?=$user['headimgurl']?>"></div>
+			</div>
+			<div id="user_info" class="main_user_info">
+				
+			</div>
+		</div>
+		<div class="main_body">
+			<iframe id="iframe" src="" scrolling="auto" width="100%" height="100%" frameborder="0"></iframe>
+		</div>
+		<script type="text/javascript" src="/static/js/index.js"></script>
+	</body>
+</html>

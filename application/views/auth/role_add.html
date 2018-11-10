@@ -1,0 +1,149 @@
+<link rel="stylesheet" type="text/css" href="/static/admin/css/common.css?v=<?=$version?>">
+<div class="row">
+    <div class="col-lg-12">
+    	<div class="container-fluid">
+			<div class="info-center">
+				<div class="page-header">
+					<div class="pull-left ">
+						<h4><?=$pageTitle?></h4>
+					</div>
+					<div class="pull-right" style="margin-top: 15px;">
+		                <span onclick="javascript:window.location.reload();"  class="glyphicon glyphicon-refresh"></span>
+		            </div>
+				</div>
+				<div class="indentify-class" style="margin-top:15px;">
+					<p class="text-sub text-default ">
+                        <?php if(isset($pageTips)):?>
+                        	<?=$pageTips?>
+                    	<?php endif;?>
+					</p>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- 功能区 -->
+<div class="row">
+	<div class="col-md-12 btn-area">
+		<!-- <div class="btn-group pull-left" role="group" aria-label="...">
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span> 新增权限</button>
+			<button type="button" class="btn btn-danger" name='save' id="save"><span class="glyphicon glyphicon-floppy-saved"></span> 保存修改</button>
+		</div> -->
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel-body">
+			<div class="zTreeDemoBackground col-xs-4" style="float: left;">
+				<ul id="treeDemo" class="ztree" style="height:320px; width: 100%;min-width: 300px; margin-bottom: 10px;">
+				</ul>
+			</div>
+
+			<div class="col-xs-8" style="float: right;">
+				<h4>新增角色</h4>
+				<hr>
+				 <form class="form-horizontal" name="form_add">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="">角色名称</label>
+                        <div class="col-sm-6">
+						   <input type="text"  class="form-control input-sm" placeholder="" id="name" name="name"/>
+                        </div>
+                        <div class="col-sm-3">
+						    <font color="red">*</font>
+                        </div>
+                    </div>
+                </form>
+				<div class="modal-footer">
+	                <button type="button" class="btn btn-default" id="submit_cancel_button">取消</button>
+	                <button type="button" class="btn btn-primary" id="submit_add_button">保存</button>
+            	</div>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/static/admin/bootstrap-3.3.5-dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var zNodes = [{ id:1, pId:0, name:"数据错误"}]; 
+	$(document).ready(function(){	
+		var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};	
+		//加载树
+	 	refresh_tree();
+
+		function refresh_tree()
+		{
+			var time   = Date.parse(new Date());
+			$.ajax({
+		        type: "POST",
+		        url: "/auth/auth/get_nodes",
+		        data: {time:time},
+		        dataType: 'json',
+		        success: function(data) {
+		            if(data.status=="200"){
+		            	zNodes = data.data;
+		            	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		            }
+		        }
+		    }); 
+		    setCheck();
+			$("#py").bind("change", setCheck);
+			$("#sy").bind("change", setCheck);
+			$("#pn").bind("change", setCheck);
+			$("#sn").bind("change", setCheck);
+		}
+
+		function nodes_select_data(obj,nodes)
+	 	{
+	 		$.each(obj,function(k,v){
+	 			if(!v['name']) return nodes;
+	 			node = {};
+	 			node.id 	= v['id'];
+	 			node.name 	= v['name'];
+	 			var i = 0;
+	 			for (var j in nodes) { i++}
+	 			nodes[i] = node;
+	 		});
+
+	 		return nodes;
+	 	}
+
+
+
+		// 保存
+		$("#submit_add_button").on('click',function(){
+			var role_name = $("#name").val();
+			if(!role_name){
+				alert('请填写角色名称');
+				return;
+			}
+			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			var nodes = treeObj.getCheckedNodes(true);
+			var nodes_data = nodes_select_data(nodes,{});
+			ajaxRequest({'name':role_name,'nodes_data':nodes_data},'/auth/role/save_role','submit_add_button','POST',0);
+
+		});
+
+		function setCheck() {
+			type = { "Y" : "ps", "N" : "ps" };
+			setting.check.chkboxType = type;
+		}
+
+
+
+	});
+
+	
+
+
+
+</script>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>新建任务</title>
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-select/css/bootstrap-select.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="clearfix">
+				<div class="header_title float_left">
+					<h2>理论物理研究所-学术活动</h2>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="header_button float_left">
+					<button type="button" class="btn btn-primary">确定</button>
+					<button type="button" class="btn btn-primary">测试抓取</button>
+				</div>
+			</div>
+		</div>
+		<div class="body" id="collect_channel" style="margin-bottom: 15px; display: none;">
+			<div class="article_group">
+				<h4 class="article_title">将按如下顺序发表文章</h4>
+				<div class="article_site">
+					<span>文章列表网址:</span>
+					<a href="javascript:;">http://www.ibp.cas.cn/kyjz/</a>
+					<span>, 所有文章如下</span>
+				</div>
+				<div class="article_url">
+					<a href="javascript:;">http://www.ibp.cas.cn/kyjz/zxdt/201810/t20181006_5133553.html</a>
+
+				</div>
+			</div>
+		</div>
+		<div class="body">
+            <input type="hidden" id="task_id" value="<?=$task['task_id']?>">
+			<ul class="nav nav-tabs body_tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#setting" aria-controls="setting" role="tab" data-toggle="tab">基本设置</a>
+				</li>
+				<li role="presentation">
+					<a href="#channel" aria-controls="channel" role="tab" data-toggle="tab">文章来源</a>
+				</li>
+				<li role="presentation">
+					<a href="#pull" aria-controls="pull" role="tab" data-toggle="tab">正文抓取</a>
+				</li>
+				<li role="presentation">
+					<a href="#replace" aria-controls="replace" role="tab" data-toggle="tab">内容替换</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<!-- 基本设置 -->
+				<div role="tabpanel" class="tab-pane active" id="setting">
+					<div class="form_group">
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">任务名称</h3>
+							<div class="group_content">
+								<input type="text" class="form-control" value="<?=$task['task_name']?>" id="task_name">
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">机构</h3>
+							<div class="group_content" style="width:220px;">
+								<select id="institution" class="selectpicker show-tick">
+									<?php foreach($institution as $item):?>
+										<?php if($item['institution'] == $task['institution']):?>
+										    <option value="<?=$item['institution']?>" selected><?=$item['institution']?></option>
+                                        <?php else:?>
+                                            <option value="<?=$item['institution']?>"><?=$item['institution']?></option>
+                                        <?php endif;?>
+									<?php endforeach;?>
+								</select>
+							</div>
+							<div class="float_left">
+								<a class="add_btn" href="javascript:;">+增加来源机构</a>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">分类</h3>
+							<div class="group_content" style="width:220px;">
+								<select id="category" class="selectpicker show-tick">
+                                    <?php foreach($category as $item):?>
+                                        <?php if($item['category'] == $task['category']):?>
+                                            <option value="<?=$item['category']?>" selected><?=$item['category']?></option>
+                                        <?php else:?>
+                                            <option value="<?=$item['category']?>"><?=$item['category']?></option>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+								</select>
+							</div>
+							<div class="float_left">
+								<a class="add_btn" href="javascript:;">+增加分类</a>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">重要度</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="zhongyao" value="普通" id="zhongyao_zero"
+                                        <?php if($task['important'] == '普通'):?>checked<?php endif;?>>
+									<label for="zhongyao_zero">普通</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="zhongyao" value="重要" id="zhongyao_one"
+                                        <?php if($task['important'] == '重要'):?>checked<?php endif;?>>
+									<label for="zhongyao_one">重要</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="zhongyao" value="非常重要" id="zhongyao_two"
+                                        <?php if($task['important'] == '非常重要'):?>checked<?php endif;?>>
+									<label for="zhongyao_two">非常重要</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">更新时间</h3>
+							<div class="group_content">
+								<input type="text" style="width: 100px;" id="interval_time" value="<?=$task['interval_time']?>">
+								<select style="height: 24px;" id="interval_unit">
+									<option value="分钟" <?php if($task['interval_unit'] == '分钟'):?>selected<?php endif;?>>分钟</option>
+                                    <option value="小时" <?php if($task['interval_unit'] == '小时'):?>selected<?php endif;?>>小时</option>
+                                    <option value="天" <?php if($task['interval_unit'] == '天'):?>selected<?php endif;?>>天</option>
+								</select>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">自动翻译</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="fanyi" value="0" id="fanyi_no"
+                                        <?php if($task['translate'] == 0):?>checked<?php endif;?>>
+									<label for="fanyi_no">不翻译</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="fanyi" value="1" id="fanyi_tit"
+                                        <?php if($task['translate'] == 1):?>checked<?php endif;?>>
+									<label for="fanyi_tit">翻译标题</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="fanyi" value="2" id="fanyi_all"
+                                        <?php if($task['translate'] == 2):?>checked<?php endif;?>>
+									<label for="fanyi_all">翻译标题+正文</label>
+								</div>
+							</div>
+						</div>
+						<!--<div class="form_group_input clearfix">
+							<h3 class="group_title">字符集</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="zifu" value="0" id="zifu_auto">
+									<label for="zifu_auto">自动检测</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="zifu" value="1" id="zifu_other">
+									<label for="zifu_other">其他</label>
+									<input type="text">
+								</div>
+							</div>
+						</div>-->
+						<div class="form_group_input clearfix" style="margin-bottom:0px;">
+							<h3 class="group_title">自动标签</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="biaoqian" value="0" id="biaoqian_all"
+                                        <?php if($task['tags'] == 0):?>checked<?php endif;?>>
+									<label for="biaoqian_all">全局标签</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="biaoqian" value="1" id="biaoqian_custom"
+                                        <?php if($task['tags'] == 1):?>checked<?php endif;?>>
+									<label for="biaoqian_custom">自定义标签</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width:450px;">
+								<p class="tips">多关键词使用英文逗号隔开，不添加可留空。如：农业;饲料;微生物</p>
+								<textarea class="form-control" id="custom_tags"><?=$task['custom_tags']?></textarea>
+							</div>
+						</div>
+						<div class="form_group_input" style="padding: 50px 0px;">
+							<button type="button" class="btn btn-primary" id="basic_setting">保存修改</button>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- 文章来源 -->
+				<div role="tabpanel" class="tab-pane" id="channel">
+					<div class="form_group">
+						<div class="form_group_input clearfix" style="margin-bottom: 0px;">
+							<h3 class="group_title">文章来源</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<label style="color: #9B9B9B;">可以添加多个网址，每个网址以新行开始</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="laiyuan" value="1" id="laiyuan">
+									<label for="laiyuan" style="color: #50E3C2;">多级DOM网页采集，抓取不到链接时可选</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width: 500px;">
+								<textarea class="form-control" id="main_urls"><?=$task['main_urls']?></textarea>
+							</div>
+						</div>
+						<div class="form_group_input clearfix" style="margin-bottom: 0px;">
+							<h3 class="group_title">匹配规则</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="pipei" value="0" id="pipei_url">
+									<label for="pipei_url">使用URL通配符匹配</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="pipei" value="1" id="pipei_css">
+									<label for="pipei_css">使用CSS选择器匹配</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width: 500px;">
+								<p class="tips">列表内文章地址，(*)为通配符, 例如: http://www.domain.com/article/(*)/</p>
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form_group_input clearfix" style="margin-bottom: 0px;">
+							<h3 class="group_title">采集规则</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="caiji" value="0" id="caiji_no">
+									<label for="caiji_no">不使用规则</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="caiji" value="1" id="caiji_key">
+									<label for="caiji_key">根据关键词采集</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="caiji" value="1" id="caiji_keys">
+									<label for="caiji_keys" style="color: #50E3C2;">根据关键词组合过滤</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix" style="margin-bottom: 0px;">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="pipei2" value="0" id="pipei2_tit">
+									<label for="pipei2_tit">只匹配标题</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="pipei2" value="1" id="pipei2_cont">
+									<label for="pipei2_cont">只匹配正文</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="pipei2" value="1" id="pipei2_all">
+									<label for="pipei2_all">匹配标题与正文</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width: 500px;">
+								<p class="tips">多关键词使用英文逗号隔开，不添加可留空。如：农业;饲料;微生物</p>
+								<textarea class="form-control"></textarea>
+								<div style="padding-top: 10px;">
+									<span>关键词出现次数:</span>
+									<input type="text" style="width: 60px;">
+									<span>[关键词出现次数]只在检测文章正文时有效</span>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input" style="padding: 50px 0px;">
+							<button type="button" class="btn btn-primary">保存修改</button>
+							<button type="button" class="btn btn-default">测试</button>
+						</div>
+					</div>
+				</div>
+				<!-- 正文抓取 -->
+				<div role="tabpanel" class="tab-pane" id="pull">
+					<div class="form_group">
+						<div class="form_group_input clearfix" style="margin-bottom:0px;">
+							<h3 class="group_title">标题抓取</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="biaoti" value="0" id="biaoti_all">
+									<label for="biaoti_all">使用通配符匹配</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="biaoti" value="1" id="biaoti_css">
+									<label for="biaoti_css">使用CSS选择器匹配</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width:450px;">
+								<p class="tips">"起始无重复HTML(*)结束无重复HTML" 例如: &lt;title&gt;(*)&lt;/title&gt;</p>
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form_group_input clearfix" style="margin-bottom:0px;">
+							<h3 class="group_title">正文抓取</h3>
+							<div class="group_content" style="width: auto; padding-top: 5px;">
+								<div class="radio_group">
+									<input type="radio" name="zhengwen" value="0" id="zhengwen_all">
+									<label for="zhengwen_all">使用通配符匹配</label>
+								</div>
+								<div class="radio_group">
+									<input type="radio" name="zhengwen" value="1" id="zhengwen_css">
+									<label for="zhengwen_css">使用CSS选择器匹配</label>
+								</div>
+							</div>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title"></h3>
+							<div class="group_content" style="width:450px;">
+								<p class="tips">"起始无重复HTML(*)结束无重复HTML" 例如: &lt;title&gt;(*)&lt;/title&gt;</p>
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form_group_input" style="padding: 50px 0px 0px;">
+							<button type="button" class="btn btn-primary">保存修改</button>
+							<button type="button" class="btn btn-default">测试</button>
+						</div>
+						<div class="form_group_input clearfix">
+							<h3 class="group_title">输入地址</h3>
+							<div class="group_content" style="width: 500px;">
+								<input type="text" class="form-control">
+							</div>
+							<div class="float_left">
+								<button type="button" class="btn btn-primary">提交</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 内容替换 -->
+				<div role="tabpanel" class="tab-pane" id="replace">
+					<div class="form_group">
+						<div class="form_group_input clearfix">
+							<h3 class="group_title" style="width: 60px;">关键词</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+							<h3 class="group_title" style="width: 60px;">替换为</h3>
+							<div class="group_content">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+						<div class="form_group_input" style="padding: 50px 0px;">
+							<button type="button" class="btn btn-primary">保存修改</button>
+							<button type="button" class="btn btn-default">新增</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/static/js/global.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+					var targetTab = $(e.target).attr('aria-controls');
+					if(targetTab === 'channel') {
+						$('#collect_channel').show();
+					} else {
+						$('#collect_channel').hide();
+					}
+				});
+			})
+
+            var if_update_task = true;
+
+            function basic_setting() {
+                if(!if_update_task){
+                    return;
+                }
+                var task_id = $('#task_id').val();
+                var task_name = $('#task_name').val();
+                var institution = $('#institution').val();
+                var category = $('#category').val();
+                var important = $('input[name="zhongyao"]:checked').val();
+                var interval_time = $('#interval_time').val();
+                var interval_unit = $('#interval_unit').val();
+                var translate = $('input[name="fanyi"]:checked').val();
+                var tags = $('input[name="biaoqian"]:checked').val();
+                var custom_tags = '';
+                if(tags == 1){
+                    custom_tags = $('#custom_tags').val();
+                }
+                if (!task_name || !institution || !category || !important || !interval_time || !interval_unit || !translate
+                    || !tags) {
+                    tips("请填写完整任务需求");
+                    return;
+                }
+                if_add_task = false;
+                $.ajax({
+                    type: 'post',
+                    url: "/task/update_task_ajax",
+                    data: {
+                        task_id: task_id,
+                        task_name: task_name,
+                        institution: institution,
+                        category: category,
+                        important: important,
+                        interval_time: interval_time,
+                        interval_unit: interval_unit,
+                        translate: translate,
+                        tags: tags,
+                        custom_tags: custom_tags
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data['status'] == -1) {
+                            if_update_task = true;
+                            tips(data['error']);
+                        }
+                        if (data['status'] == 1) {
+                            tips('保持成功');
+                            //window.location.href = '/task/task_config/' + task_id;
+                        }
+                    }
+                });
+            }
+
+            $("#basic_setting").click(function(){
+                basic_setting();
+            });
+		</script>
+	</body>
+</html>

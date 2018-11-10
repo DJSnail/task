@@ -1,0 +1,160 @@
+		
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+			<a href="/">首页</a>
+			<a href="javascript:;">&gt;&gt;</a>
+			<a href="javascript:;" target="_blank">报告详情</a>	
+		</div>
+		<div class="reports_details_body clearfix">
+			<div class="reports_details_body_left">
+				<div class="pic">
+					<img src="<?php echo $report['cover']?>" >
+				</div>
+				<ul class="info">
+					<li>
+						<h3>报告作者：</h3>
+						<p><?php echo $report['author']?></p>
+					</li>
+					<li>
+						<h3>完成单位：</h3>
+						<p><?php echo $report['company']?></p>
+					</li>
+					<li>
+						<h3>发布时间：</h3>
+						<p><?php echo $report['public_time']?></p>
+					</li>
+					<li>
+						<h3>主题分类：</h3>
+						<p><?php echo $report['category']?></p>
+					</li>
+				</ul>
+				<a id="get_btn" href="javascript:;">购买报告</a>
+			</div>
+			<div class="reports_details_body_right">
+				<h2><?php echo $report['title']?></h2>
+				<div class="descr"><?php echo my_strip_tags($report['detail'])?></div>
+				<h3>报告预览:</h3>
+				<div id="pdf_reviews" class="pdf_reviews"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 购买模态框 -->
+<div id="module" class="snail_module" data-status="hide">
+    <div class="snail_module_panel">
+        <div class="snail_module_head"><h2>联系购买</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="snail_module_row">
+                <label>姓名</label>
+                <div class="snail_module_input"><input type="text" id="name"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>单位</label>
+                <div class="snail_module_input"><input type="text" id="company"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>邮箱</label>
+                <div class="snail_module_input"><input type="text" id="email"></div>
+            </div>
+            <div class="snail_module_row">
+                <label>手机</label>
+                <div class="snail_module_input"><input type="text" id="phone"></div>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" id="submit_module">提交</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/pdfobject.min.js"></script>
+<script type="text/javascript">
+	var options = {width: '100%', height: '940px'};
+	var pdf_url = "/public/file?id=<?php echo $report['pdf_id']?>";
+    var uid = "<?php echo $uid?>";
+    var conn_uid = "<?php echo $conn_main?>";
+    var rid = "<?php echo $report['id']?>";
+    var sub = true;
+    //var pdf_url = "file:///Users/liyuhang/Downloads/jojotest.pdf";
+	PDFObject.embed(pdf_url, "#pdf_reviews", options);
+
+	$('#get_btn').click(function () {
+        if(!uid){
+            tips('请先登录');
+            return;
+        }
+        if(!conn_uid){
+            $('#module').attr('data-status', 'show');
+        }else{
+            submit_order(conn_uid);
+        }
+
+    });
+    //添加一个新的主联系人
+    $('#submit_module').click(function () {
+        var name = $.trim($('#name').val()), company = $.trim($('#company').val()),
+                email = $.trim($('#email').val()), phone = $.trim($('#phone').val());
+        if(!name || !company || !email || !phone ) {
+            tips('信息没输入完哦');
+            $('#module').attr('data-status', 'hide');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/add_connect_user',
+            data: {
+                username: name,
+                company: company,
+                email: email,
+                phone: phone,
+                is_main:1
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#module').attr('data-status', 'hide');
+                if(data['status'] == 1){
+                    conn_uid = data['user']['id'];
+                    submit_order(conn_uid);
+                }else{
+                    tips(data['error']);
+                }
+            },
+            error: function() {
+
+            }
+        })
+    });
+    function submit_order(conn_uid){
+        if(!sub){
+            tips('请勿重复提交购买');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/user/add_purchase_report_order',
+            data: {
+                rid:rid,
+                conn_uid:conn_uid,
+                title:"<?php echo $report['title']?>"
+            },
+            dataType: 'json',
+            success: function(data) {
+                if(data['status'] == 1){
+                    tips2();
+                    sub = false;
+                }else{
+                    tips(data['error']);
+                }
+            },
+            error: function() {
+
+            }
+        })
+    }
+</script>

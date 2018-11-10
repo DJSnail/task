@@ -1,0 +1,197 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<?php
+	$list=$expert_list['data']['items'];
+?>
+
+<div class="floor_descr">
+	<div class="wrap">
+		<div class="descr">
+			<h2>生物质领域专家</h2>
+			<h3>专家库，包括领域专家、企业专家以及金融专家，转化模式：平台提供专利、文献、成果信息，平台专家库提供专家信息，用户可在平台直接与专家取得联系。</h3>
+			<div class="btn_link"><a href="/expert/apply" target="_blank">申请成为专家&gt;&gt;</a></div>
+		</div>
+	</div>
+</div>
+
+<div class="floor_content">
+	<div class="wrap clearfix">
+		<div class="title_content box_sizing">
+			<ul class="clearfix">
+				<li><a href="/requirement" >专利技术</a></li>
+				<li><a href="/project" >项目合作</a></li>
+				<li class="active"><a href="/expert">专家咨询</a></li>
+				<li class="search"><input type="text" value="<?php echo $search_filter ?>"></li>
+			</ul>
+			<button type="button" id="subscribe_btn">+订阅</button>
+		</div>
+		<div class="left_content">
+			<div class="list_group">
+				<h2>研究领域</h2>
+				<ul id='domain-filter'>
+					<?php $i=0;foreach($filter_list['domain'] as $val):?>
+						<?php if($i < 5): ?>
+						<li class="clearfix">
+							<input type="checkbox" <?php if(in_array($val,$domain_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php else:?>
+						<li class="clearfix" style="display:none;">
+							<input type="checkbox" <?php if(in_array($val,$domain_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['domain']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+			<div class="list_group">
+				<h2>所在单位</h2>
+				<ul id="company-filter">
+					<?php $i=0;foreach($filter_list['company'] as $val):?>
+						<?php if($i < 5): ?>
+						<li class="clearfix">
+							<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php else:?>
+						<li class="clearfix" style="display:none;">
+							<input type="checkbox" <?php if(in_array($val,$company_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['company']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+			<div class="list_group">
+				<h2>专家类型</h2>
+				<ul id="job-filter">
+					<?php $i=0;foreach($filter_list['job'] as $val):?>
+						<?php if($i < 5): ?>
+						<li class="clearfix">
+							<input type="checkbox" <?php if(in_array($val,$job_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php else:?>
+						<li class="clearfix" style="display:none;">
+							<input type="checkbox" <?php if(in_array($val,$job_filter)):?>checked<?php endif;?>><p title="<?=$val?>"><?=$val?></p>
+						</li>
+						<?php endif;?>
+					<?php $i++;endforeach;?>
+				</ul>
+				<?php if(count($filter_list['job']) > 5): ?>
+				<a href="javascript:;" target="_blank" class="more_btn" data-state="hide">更多&gt;&gt;</a>
+				<?php endif;?>
+			</div>
+		</div>
+		<div class="right_content">
+			<ul>
+				<?php foreach($list as $k=>$val):?>
+
+				<li class="clearfix">
+					<div class="item_pic"><img src="<?=$val['pic']?>"></div>
+					<div class="item_info">
+						<a target="_blank" href="/expert/detail?expert_no=<?=$val['expert_no']?>">
+							<h2><?=$val['name']?><span><?=$val['company']?></span></h2>
+							<h3><?=strip_tags($val['resume'])?></h3>
+						</a>
+						<div class="clearfix">
+							<div class="float_left"><h4>研究领域：</h4><p class="nowrap"><?=$val['domain']?></p></div>
+							<div class="float_left"><h4>担任职务：</h4><p class="nowrap"><?=$val['job']?></p></div>
+						</div>
+					</div>
+				</li>
+
+				<?php endforeach;?>
+			</ul>
+			<?=$pagestring?>
+		</div>
+	</div>
+</div>
+
+<div id="subscribe_module" class="snail_module" data-status="hide">
+    <input type="hidden" id="subscribe_type" value="<?php echo $subscribe_type?>">
+    <div class="snail_module_panel snail_subscribe_panel">
+        <div class="snail_module_head"><h2>订阅推送</h2><span class="close">&times;</span></div>
+        <div class="snail_module_body">
+            <div class="step_one">
+                <h4>请输入关键词，比如：“发电”、“秸秆”，</h4>
+                <h4>如不输入关键词，则默认订阅该板块全部更新</h4>
+                <ul class="new_key">
+                    <li class="clearfix">
+                        <div class="key_input"><input type="text" placeholder="请输入关键字"></div>
+                        <span class="add">+</span>
+                    </li>
+                </ul>
+                <h5>已订阅关键词（最多订阅6个关键词）</h5>
+                <ul class="past_key clearfix">
+                    <?php foreach($subscribe as $s):?>
+                    <li><p title="<?php echo $s?>"><?php echo $s?></p><span class="del">&times;</span></li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <div class="step_two" style="display: none;">
+                <div class="QRcode"></div>
+                <h6>微信扫描<span class="showy">二维码</span>完成订阅关键词：
+                    <span id="sub_word"></span>
+                </h6>
+            </div>
+        </div>
+        <div class="snail_module_foot">
+            <button type="button" class="next">下一步</button>
+            <button type="button" class="prev" style="display: none;">上一步</button>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script type="text/javascript" src="/static/js/form.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#domain-filter input').click(function(){
+			jump_page(1);
+		});
+		$('#company-filter input').click(function(){
+			jump_page(1);
+		});
+        $('#job-filter input').click(function(){
+            jump_page(1);
+        });
+		$('.snail_page a').click(function(e){
+			e.preventDefault();
+			jump_page(parseInt($(this).attr('data-ci-pagination-page')));
+		});
+        $('.search input').keyup(function(e){
+            if (window.event)//如果window.event对象存在，就以此事件对象为准
+                e = window.event;
+            var code = e.charCode || e.keyCode;
+            if (code == 13) {
+                jump_page(1);
+            }
+        });
+		var jump_page = function(page){
+			var domain=new Array(),company=new Array(),job=new Array();
+			$('#domain-filter input:checked').each(function(){
+				domain.push($(this).next().text());
+			});
+			$('#company-filter input:checked').each(function(){
+				company.push($(this).next().text());
+			});
+            $('#job-filter input:checked').each(function(){
+                job.push($(this).next().text());
+            });
+            var search = $('.search input').val();
+			$.form('/expert',
+					{
+						'domain':domain.join(','),
+						'company':company.join(','),
+                        'job':job.join(','),
+						'page':page,
+                        'search':search
+					},
+					'POST').submit();
+		}
+	});
+</script>

@@ -1,0 +1,168 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+			<a href="/">首页</a>
+			<a href="javascript:;">&gt;&gt;</a>
+			<a href="/user/order_list">我的申请</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <?php echo $tab ?>
+		</div>
+		<div class="order_list">
+			<div class="order_list_nav clearfix">
+				<div class="order_list_nav_type">
+					<h3>服务类型：</h3>
+					<ul id="order_type_class">
+                        <li><a href="/user/order_list?type=报告定制">报告定制</a></li>
+                        <li><a href="/user/order_list?type=购买报告">购买报告</a></li>
+                        <li><a href="/user/order_list?type=文献传递">文献传递</a></li>
+                        <li><a href="/user/order_list?type=科技查新">科技查新</a></li>
+                        <li><a href="/user/order_list?type=专题检索">专题检索</a></li>
+                        <li><a href="/user/order_list?type=成果转化">成果转化</a></li>
+                        <li><a href="/user/order_list?type=项目合作">项目合作</a></li>
+                        <li><a href="/user/order_list?type=申请专家">申请专家</a></li>
+                        <li><a href="/user/order_list?type=联系专家">联系专家</a></li>
+					</ul>
+				</div>
+			</div>
+            <script type="text/javascript">
+                var searchKey = decodeURI(window.location.search),
+                    oOrder = document.getElementById('order_type_class'),
+                    oOrder1 = oOrder.getElementsByTagName('li')[0],
+                    oOrder2 = oOrder.getElementsByTagName('li')[1],
+                    oOrder3 = oOrder.getElementsByTagName('li')[2],
+                    oOrder4 = oOrder.getElementsByTagName('li')[3],
+                    oOrder5 = oOrder.getElementsByTagName('li')[4],
+                    oOrder6 = oOrder.getElementsByTagName('li')[5],
+                    oOrder7 = oOrder.getElementsByTagName('li')[6],
+                    oOrder8 = oOrder.getElementsByTagName('li')[7],
+                    oOrder9 = oOrder.getElementsByTagName('li')[8];
+                switch(searchKey) {
+                    case '?type=报告定制':
+                        oOrder1.className = 'active';
+                        break;
+                    case '?type=购买报告':
+                        oOrder2.className = 'active';
+                        break;
+                    case '?type=文献传递':
+                        oOrder3.className = 'active';
+                        break;
+                    case '?type=科技查新':
+                        oOrder4.className = 'active';
+                        break;
+                    case '?type=专题检索':
+                        oOrder5.className = 'active';
+                        break;
+                    case '?type=成果转化':
+                        oOrder6.className = 'active';
+                        break;
+                    case '?type=项目合作':
+                        oOrder7.className = 'active';
+                        break;
+                    case '?type=申请专家':
+                        oOrder8.className = 'active';
+                        break;
+                    case '?type=联系专家':
+                        oOrder9.className = 'active';
+                        break;
+
+                }
+            </script>
+			<div class="order_list_body">
+				<ul class="order_list_body_title">
+					<li>
+						<div class="number"><p>申请编号</p></div>
+						<div class="name"><p>名称</p></div>
+						<div><p>提交时间</p></div>
+						<div><p>服务类型</p></div>
+						<div><p>状态</p></div>
+						<div><p>操作</p></div>
+					</li>
+				</ul>
+				<ul class="order_list_body_items"></ul>
+			</div>
+			<div class="order_list_page clearfix">
+				<ul>
+					<li><a href="javascript:;" id="first_page" data-num="1">首页</a></li>
+					<li><a href="javascript:;" id="pre_page" data-num="<?php echo $page_array['pre_page'] ?>">上一页</a></li>
+					<li><a href="javascript:;" id="next_page" data-num="<?php echo $page_array['next_page'] ?>">下一页</a></li>
+					<li><a href="javascript:;" id="last_page" data-num="<?php echo $page_array['total_page'] ?>">尾页</a></li>
+					<li><span>页次：</span>
+                        <span id="current_page"><?php echo $page_array["current_page"] ?></span>
+                        /<span id="total_page"><?php echo $page_array["total_page"] ?></span>
+                    </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+
+<script>
+    var current_page = 1;
+    fill_data(current_page);
+    $(".order_list_page ul li a").click(function() {
+        current_page = $(this).attr("data-num");
+        var now_page = $("#current_page").html();
+        if(now_page == current_page){
+            return;
+        }
+        fill_data(current_page);
+    });
+    function fill_data(current_page){
+        $.ajax({
+            type: 'post',
+            url: '/user/get_order_api_ajax',
+            data: {
+                current_page: current_page,
+				type:"<?php echo $this->input->get('type')?>"
+            },
+            dataType: 'json',
+            success: function (res) {
+                if(res['page_array']) {
+                    var page = res['page_array'];
+                    $("#pre_page").attr("data-num",page["pre_page"]);
+                    $("#next_page").attr("data-num",page["next_page"]);
+                    $("#last_page").attr("data-num",page["total_page"]);
+                    $("#current_page").html(page["current_page"]);
+                    $("#total_page").html(page["total_page"]);
+                }
+                if(res['data_list']){
+                    var data_list = res['data_list'];
+                    $(".order_list_body_items").html("");
+                    for(var i=0;i<data_list.length;i++){
+                        var data = data_list[i];
+
+                        var html = '<li><div class="number"><p>'+ data['report_no'] +'</p></div>' +
+                                '<div class="name"><p>' + data['subject'] + '</p></div>' +
+                                '<div><p>' + data['add_time'] + '</p></div> ' +
+                                '<div><p>' + data['type'] +  '</p></div>';
+                        switch(data['status']) {
+                            case '处理中':
+                                html += '<div class="running"><p>' + data['status'] + '</p></div>';
+                                break;
+                        	case '已驳回':
+                        		html += '<div class="reject"><p>' + data['status'] + '</p></div>';
+                        		break;
+                        	case '已完成':
+                        		html += '<div class="completed"><p>' + data['status'] + '</p></div>';
+                        		break;
+                            default:
+                                html += '<div class=""><p>' + data['status'] + '</p></div>';
+                                break;
+                        }
+                            html += '<div class="down"><a target="_blank" href="/user/order_details?id=' + data['report_no'] + '&type=' + data['type'] +'">查看</a></div></li>';
+
+                        $(".order_list_body_items").append(html);
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+</script>

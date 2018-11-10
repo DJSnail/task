@@ -1,0 +1,59 @@
+<?php $this->load->view('web/common/m_header.html');?>
+    <style type="text/css">body{background-color: #f9f9f9;}</style>
+	<header class="header">
+		<h1>订阅详情</h1>
+		<a href="javascript:;" class="go_subscribe">我的订阅</a>
+	</header>
+	<article class="main_wrap" style="padding: 10px 10px 40px;">
+		<div class="subscribe_detail">
+			<article class="subscribe_plate">
+				<h2>板块订阅</h2>
+				<div class="plate_items clearfix">
+					<?php if($active_type=='项目合作'):?>
+                        <span class="active box_sizing"><a href="/sns/my_subscribe?type=项目合作">项目合作</a></span>
+                    <?php else: ?>
+                        <span class="box_sizing"><a href="/sns/my_subscribe?type=项目合作">项目合作</a></span>
+                    <?php endif; ?>
+
+                    <?php if($active_type=='产业信息'):?>
+                    <span class="active box_sizing"><a href="/sns/my_subscribe?type=产业信息">产业信息</a></span>
+                    <?php else: ?>
+                    <span class="box_sizing"><a href="/sns/my_subscribe?type=产业信息">产业信息</a></span>
+                    <?php endif; ?>
+
+                    <?php if($active_type=='专利技术'):?>
+                    <span class="active box_sizing"><a href="/sns/my_subscribe?type=专利技术">专利技术</a></span>
+                    <?php else: ?>
+                    <span class="box_sizing"><a href="/sns/my_subscribe?type=专利技术">专利技术</a></span>
+                    <?php endif; ?>
+
+                    <?php if($active_type=='专家咨询'):?>
+                    <span class="active box_sizing"><a href="/sns/my_subscribe?type=专家咨询">专家咨询</a></span>
+                    <?php else: ?>
+                    <span class="box_sizing"><a href="/sns/my_subscribe?type=专家咨询">专家咨询</a></span>
+                    <?php endif; ?>
+
+                    <?php if($active_type=='分析报告'):?>
+                    <span class="active box_sizing"><a href="/sns/my_subscribe?type=分析报告">分析报告</a></span>
+                    <?php else: ?>
+                    <span class="box_sizing"><a href="/sns/my_subscribe?type=分析报告">分析报告</a></span>
+                    <?php endif; ?>
+
+				</div>
+			</article>
+			<article class="subscribe_key">
+				<h2>已订阅关键词（最多订阅6个关键词）</h2>
+				<ul class="key_items">
+                    <?php foreach($subscribe as $sub):?>
+					    <li class="clearfix">
+						    <p><?php echo $sub ?></p>
+					    </li>
+                    <?php endforeach;?>
+				</ul>
+			</article>
+            <div style="background-color:#fff;padding: 0px 10px 15px;">
+                <a href="/sns/history_push" class="go_history">浏览推送历史&gt;&gt;</a>
+            </div>
+		</div>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

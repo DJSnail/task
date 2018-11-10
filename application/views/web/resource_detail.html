@@ -1,0 +1,373 @@
+<?php $this->load->view('web/common/header_height.html');?>
+
+<style type="text/css">
+	.filter {
+		margin: 0px 20px 10px;
+		padding: 15px 0px;
+		background-color: #F0F0F5;
+	}
+	.filter > label {
+		display: inline-block;
+		margin-right: 15px;
+		line-height: 24px;
+		padding-left: 15px;
+		font-size: 14px;
+	}
+	.filter > div {
+		display: inline-block;
+		margin-right: 8px;
+		width: 110px;
+	}
+	.filter select {
+		display: block;
+		width: 100%;
+		height: 24px;
+		border: 1px solid #55A1E9;
+
+	}
+	.filter > span {
+		display: inline-block;
+		width: 70px;
+		color: #fff;
+		text-align: center;
+		line-height: 24px;
+		background-color: #55A1E9;
+		cursor: pointer;
+	}
+	.charts_title,
+	.charts_title span {
+		color: #fff;
+		font-size: 14px;
+		line-height: 28px;
+		text-indent: 15px;
+		background-color: #6F839F;
+	}
+	.charts_map,
+	.charts_bar,
+	.charts_line {
+		float: left;
+		height: 500px;
+	}
+	.charts_map {
+		width: 660px;
+		margin-right: 40px;
+	}
+	.charts_bar {
+		width: 460px;
+		height: 485px;
+		padding-top: 15px;
+	}
+	.charts_line {
+		width: 100%;
+	}
+</style>
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head">
+			<a href="/">首页</a>
+			<a href="javascript:;">&gt;&gt;</a>
+			<a href="javascript:;">信息监测</a>
+		</div>
+		<div class="filter">
+			<label>资源筛选</label>
+			<div>
+				<select name="years" id="years"><option value="0">年份</option></select>
+			</div>
+			<div>
+				<select name="type" id="type"><option value="0">资源类型</option></select>
+			</div>
+			<span id="lookup">查看</span>
+		</div>
+		<div class="clearfix" style="padding: 0px 20px; margin-bottom: 30px;">
+			<div class="charts_title">全国<span class="name">粮食作物产量</span>分布图（<span class="unit">万吨</span>）</div>
+			<div id="charts_map" class="charts_map"></div>
+			<div id="charts_bar" class="charts_bar"></div>
+		</div>
+		<div class="clearfix" style="padding: 0px 20px; margin-bottom: 30px;">
+			<div class="charts_title"><span class="name">粮食作物产量</span>排名前10省份年度分布（<span class="unit">万吨</span>）</div>
+			<div id="charts_line" class="charts_line"></div>
+		</div>
+	</div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>
+<script type="text/javascript" src="/static/js/echarts.min.js"></script>
+<script type="text/javascript" src="/static/js/china.js"></script>
+<script type="text/javascript" src="/static/js/rsrcData.js?v=<?=$v?>"></script>
+<script type="text/javascript">
+	var chartMap = echarts.init(document.getElementById('charts_map')),
+		chartBar = echarts.init(document.getElementById('charts_bar')),
+		chartLine = echarts.init(document.getElementById('charts_line'));
+
+	var yearOptions = '<option value="0">年份</option>', yearList = [], yearCond = 2015, typeCond = 'food';
+	$.each(filter, function(index, target) {
+		yearList.push(target['year']);
+	});
+	yearList = yearList.reverse();
+	$.each(yearList, function(index, target) {
+		if(target == yearCond) {
+			yearOptions += '<option value="'+ target +'" selected="selected">'+ target +'年</option>';
+		} else {
+			yearOptions += '<option value="'+ target +'">'+ target +'年</option>';
+		}
+	});
+	$('#years').html(yearOptions);
+	typeOption(yearCond, typeCond);
+	function typeOption(yearVal, typeVal) {
+		var typeOptions = '<option value="0">资源类型</option>';
+		if(yearVal != 0) {
+			$.each(filter, function(ind, item) {
+				if(item['year'] == yearVal) {
+					$.each(item['value'], function(inde, tar) {
+						var nameEn = tar['name_en'], nameZh = tar['name_zh'];
+						if(typeVal && nameEn == typeVal) {
+							typeOptions += '<option value="'+ nameEn +'" selected="selected">'+ nameZh +'</option>';
+						} else {
+							typeOptions += '<option value="'+ nameEn +'">'+ nameZh +'</option>';
+						}
+					});
+					return false;
+				}
+			});
+		}
+		$('#type').html(typeOptions);
+	}
+	$('#years').change(function() {
+		var val = $(this).val();
+		typeOption(val);
+	});
+
+	var initChartsData = chartsData(rsrcData, yearCond, typeCond);
+	function chartsData(data, yearVal, typeVal) {
+		var mapData, mapMaxVal, barDataX = [], barDataY = [], lineDataX = [], lineDataY = [], lineLegend = [];
+		$.each(data, function(index, target) {
+			if(target["code"] == typeVal) {
+				$('.name').html(target['name']);
+				$('.unit').html(target['unit']);
+				$.each(target['list'], function(index2, target2) {
+					lineDataX.push(target2['year']+'年');
+					if(target2['year'] == yearVal) {
+						mapData = target2['value'];
+					}
+				});
+				return false;
+			}
+		});
+		$.each(mapData, function(index, target) {
+			barDataY.push(target['name']);
+			barDataX.push(target['value']);
+		});
+		var len = barDataX.length;
+		for(var i = 0; i < len; i++) {
+	        for(var j = 0; j < len - 1 - i; j++) {
+	            if(barDataX[j] < barDataX[j+1]) {
+	                var tempX = barDataX[j+1], tempY = barDataY[j+1];
+	                barDataX[j+1] = barDataX[j];
+	                barDataY[j+1] = barDataY[j];
+	                barDataX[j] = tempX;
+	                barDataY[j] = tempY;
+	            }
+	        }
+	    }
+	    mapMaxVal = Math.max.apply(null, barDataX) + 50;
+	    barDataX = barDataX.slice(0, 10).reverse();
+	    barDataY = barDataY.slice(0, 10).reverse();
+	    $.each(data, function(index, target) {
+	    	if(target['code'] == typeVal) {
+	    		$.each(barDataY, function(index2, target2) {
+	    			var line = {type: 'line', name: target2, smooth: true}, dataVal = [];
+    				$.each(target['list'], function(index3, target3) {
+    					$.each(target3['value'], function(index4, target4) {
+    						if(target4['name'] == target2) {
+    							dataVal.push(target4['value']);
+    							return false;
+    						}
+    					});
+    				});
+    				line['data'] = dataVal;
+	    			lineDataY.push(line);
+	    		});
+	    		return false;
+	    	}
+	    });
+	    lineDataY = lineDataY.reverse();
+	    $.each(lineDataY, function(index, target) {
+	    	lineLegend.push(target['name']);
+	    });
+		return {
+			'mapData': mapData,
+			'mapMaxVal': mapMaxVal,
+			'barDataX': barDataX,
+			'barDataY': barDataY,
+			'lineDataX': lineDataX,
+			'lineDataY': lineDataY,
+			'lineLegend': lineLegend
+		};
+	}
+	
+
+	$('#lookup').click(function() {
+		var mainCond = $('#years').val(), subCond = $('#type').val();
+		if(mainCond == 0) {
+			tips('请选择筛选条件【年份】');
+			return;
+		}
+		if(subCond == 0) {
+			tips('请选择筛选条件【资源类型】');
+			return;
+		}
+		var updateChartsData = chartsData(rsrcData, mainCond, subCond);
+		chartMap.setOption({
+			series: [
+				{data: updateChartsData['mapData']}
+			],
+			visualMap: [
+				{
+					max: updateChartsData['mapMaxVal']
+				}
+			]
+		});
+		chartBar.setOption({
+			series: [
+				{data: updateChartsData['barDataX']}
+			],
+			yAxis: {
+				data: updateChartsData['barDataY']
+			}
+		});
+		chartLine.setOption({
+			series: updateChartsData['lineDataY'],
+			xAxis: {
+				data: updateChartsData['lineDataX']
+			},
+			legend: {
+				data: updateChartsData['lineLegend']
+			}
+		});
+	});
+
+	var mapOption = {
+		series: [
+			{
+				type: 'map',
+				name: '数据',
+				map: 'china',
+				roam: true,
+				geoIndex: 0,
+				data: initChartsData['mapData']
+			}
+		],
+	    geo: {
+	        map: 'china',
+	        roam: true,
+	        label: {
+                show: true,
+                color: 'rgba(0,0,0,0.7)'
+	        },
+	        itemStyle: {
+                areaColor: null,
+                borderWidth: 0,
+	            borderColor: 'rgba(0, 0, 0, 0.2)',
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 20,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+	        }
+	    },
+		visualMap: [
+			{
+				type: 'continuous',
+				min: 0,
+				max: initChartsData['mapMaxVal'],
+				left: 'left',
+		        top: 'bottom',
+		        text: ['高','低'],
+		        seriesIndex: 0,
+		        inRange: {
+		            color: ['#e0ffff', '#006edd']
+		        },
+		        calculable : true
+			}
+		],
+		tooltip: {},
+		backgroundColor : '#f3fffe'
+	};
+	var barOption = {
+		series: [
+			{
+				type: 'bar',
+				name: '数据',
+				barWidth: '20',
+				itemStyle: {
+					color: '#006edd',
+					barBorderRadius: [0, 10, 10, 0]
+				},
+				data: initChartsData['barDataX']
+			}
+		],
+		title: {
+			text: '排名前10',
+			textStyle: {
+				color: '#006edd',
+				fontSize: '14',
+				align: 'left'
+			}
+		},
+		xAxis: {
+			type: 'value'
+		},
+		yAxis: {
+			type: 'category',
+			data: initChartsData['barDataY']
+		},
+		grid: {
+	        left: 0,
+	        right: 50,
+	        top: 50,
+	        bottom: 30,
+	        containLabel: true
+	    },
+		tooltip: {}
+	};
+	var lineOption = {
+		series: initChartsData['lineDataY'],
+		grid: {
+	        left: 40,
+	        right: 120,
+	        top: 40,
+	        bottom: 40,
+	        containLabel: true
+	    },
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: initChartsData['lineDataX']
+		},
+		yAxis: {
+			type: 'value'
+		},
+		dataZoom: [
+			{
+				type: 'slider',
+				xAxisIndex: 0
+			},
+			{
+				type: 'inside',
+				xAxisIndex: 0
+			}
+		],
+		legend: {
+			orient: 'vertical',
+			right: 20,
+			top: 50,
+			data: initChartsData['lineLegend']
+		},
+		tooltip: {
+			trigger: 'axis'
+		}
+	};
+	chartMap.setOption(mapOption);
+	chartBar.setOption(barOption);
+	chartLine.setOption(lineOption);
+	
+</script>

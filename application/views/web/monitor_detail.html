@@ -1,0 +1,45 @@
+        
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+    <div class="wrap" style="background-color: #fff;">
+        <div class="order_head">
+            <a href="/">首页</a>
+            <a href="javascript:;">&gt;&gt;</a>
+            <a href="/monitor/index">产业检测</a>
+        </div>
+        <h1 class="detail_title"><?php echo $monitor["title"]?></h1>
+        <div class="reports_details_body clearfix">
+            <div class="reports_details_body_left monitor_detail_body_left">
+                <ul class="info">
+                    <li>
+                        <h3>发布日期:</h3>
+                        <p><?php echo $monitor['mdate']; ?></p>
+                    </li>
+                    <li>
+                        <h3>类型信息:</h3>
+                        <p><?php echo $monitor['articlefeature']; ?></p>
+                    </li>
+                    <li>
+                        <h3>来源机构:</h3>
+                        <p><?php echo $monitor['institute'] ?></p>
+                    </li>
+                </ul>
+                <a id="get_btn" href="<?php echo $monitor['url'] ?>" target="_blank">项目原地址</a>
+            </div>
+            <div class="reports_details_body_right expert_detail_body_right">
+                <h4>项目信息:</h4>
+                <div class="descr"><?php 
+                    if($monitor['content']){
+                        echo $monitor['content'];
+                    }else{
+                        echo "暂无信息";
+                    }
+                 ?></div>
+            </div>
+        </div>
+        <div style="height:30px;"></div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>

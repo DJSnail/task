@@ -1,0 +1,20 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>推送历史</h1>
+		<a href="javascript:;" class="go_history">浏览推送历史&gt;&gt;</a>
+	</header>
+	<article class="main_wrap">
+		<?php foreach($list as $item):?>
+		<article class="project_item">
+            <a href="<?php echo $item['url']?>">
+				<h2><?php echo $item["title"]?></h2>
+				<div class="info">
+					<span class="time"><?php echo $item["add_time"]?></span>
+					<span class="label1"><?php echo $item["type"]?></span>
+					<span class="label2"><?php echo $item["sub"]?></span>
+				</div>
+			</a>
+		</article>
+        <?php endforeach;?>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

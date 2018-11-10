@@ -1,0 +1,61 @@
+
+<?php $this->load->view('web/common/header_height.html');?>
+
+<div class="floor_content">
+	<div class="wrap" style="background-color: #fff;">
+		<div class="order_head"><h2>报告定制详情</h2></div>
+		<div class="order_details">
+			<ul class="order_details_body">
+				<li>
+					<h3>报告定制信息</h3>
+					<ul class="order_details_body_item">
+						<li><p>申请编号：</p><p><?php echo $report["report_no"] ?></p></li>
+						<li><p>分析主题：</p><p><?php echo $report["subject"] ?></p></li>
+						<li><p>研究领域：</p><p><?php echo $report["domain"] ?></p></li>
+						<li><p>技术关键词：</p><p><?php echo $report["keyword"] ?></p></li>
+						<li><p>分析目的：</p><p><?php echo $report["purpose"] ?></p></li>
+						<li><p>拟解决关键问题：</p><p><?php echo $report["solution"] ?></p></li>
+					</ul>
+				</li>
+				<li>
+					<h3>主要联系人</h3>
+					<ul class="order_details_body_item">
+						<li><p>姓名：</p><p><?php echo $report["username"] ?></p></li>
+						<li><p>单位：</p><p><?php echo $report["company"] ?></p></li>
+						<li><p>手机：</p><p><?php echo $report["phone"] ?></p></li>
+						<li><p>邮箱：</p><p><?php echo $report["email"] ?></p></li>
+					</ul>
+				</li>
+                <?php foreach($report["other_conn"] as $conn ):?>
+                <li>
+                    <h3>其他联系人</h3>
+                    <ul class="order_details_body_item">
+                        <li><p>姓名：</p><p><?php echo $conn["username"] ?></p></li>
+                        <li><p>单位：</p><p><?php echo $conn["company"] ?></p></li>
+                        <li><p>手机：</p><p><?php echo $conn["phone"] ?></p></li>
+                        <li><p>邮箱：</p><p><?php echo $conn["email"] ?></p></li>
+                    </ul>
+                </li>
+                <?php endforeach;?>
+				<li>
+					<h3>状态</h3>
+					<ul class="order_details_body_item">
+						<li><p>提交日期：</p><p><?php echo $report["add_time"] ?></p></li>
+						<li><p>处理日期：</p><p><?php echo $report["edit_time"] ?></p></li>
+						<!-- class: running（处理中）／completed（已完成）／reject（已驳回） -->
+						<li><p>处理状态：</p><p class=""><?php echo $report["status"] ?></p></li>
+						<li><p>处理人：</p><p><?php echo $report["op_username"] ?></p></li>
+                        <li><p>处理意见：</p><p><?php echo $report["op_suggestion"] ?></p></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="order_details_foot">
+				<?php if($report['att_id']) :?>
+				    <a href="/public/download?file=<?php echo $report['code'] ?>">下载处理附件</a>
+                <?php endif; ?>
+			</div>
+		</div>
+    </div>
+</div>
+
+<?php $this->load->view('web/common/footer_height.html');?>

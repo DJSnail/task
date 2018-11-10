@@ -1,0 +1,34 @@
+<?php $this->load->view('web/common/m_header.html');?>
+	<header class="header">
+		<h1>项目详情</h1>
+        <a onclick="window.history.back();" class="go_back">&lt;&nbsp;返回</a>
+	</header>
+	<article class="main_wrap">
+		<article class="detail_title">
+			<h2><?php echo $data["title"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $data["add_time"]?></span>
+				<span class="label1">报告分析</span>
+				<span class="label2"><?php echo $data["category"]?></span>
+			</div>
+		</article>
+		<article class="project_detail">
+			<section class="project_info">
+				<h3>关键词：</h3>
+				<p><?php echo $data["keyword"]?></p>
+			</section>
+			<section class="project_info">
+				<h3>作者：</h3>
+				<p><?php echo $data["author"]?></p>
+			</section>
+			<section class="project_info">
+				<h3>完成单位：</h3>
+				<p><?php echo $data["company"]?></p>
+			</section>
+			<section class="project_info">
+				<h3>摘要：</h3>
+				<p><?php echo my_strip_tags($data["detail"])?></p>
+			</section>
+		</article>
+	</article>
+<?php $this->load->view('web/common/m_footer.html');?>

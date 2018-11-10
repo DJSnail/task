@@ -1,0 +1,20 @@
+<?php $this->load->view('web/common/m_header.html');?>
+<header class="header">
+	<h1>项目列表</h1>
+	<a href="javascript:;" class="go_history">浏览订阅信息&gt;&gt;</a>
+</header>
+<article class="main_wrap">
+	<?php foreach($list as $k=>$item):?>
+	<article class="project_item">
+		<a href="/m/expert_detail?id=<?php echo $item['id']?>">
+			<h2><?php echo ($k+1)?>. <?php echo $item["company"]?> - <?php echo $item["name"]?></h2>
+			<div class="info">
+				<span class="time"><?php echo $item["add_time"]?></span>
+				<span class="label1">专利技术</span>
+				<span class="label2"><?php echo $item["type"]?></span>
+			</div>
+		</a>
+	</article>
+	<?php endforeach;?>
+</article>
+<?php $this->load->view('web/common/m_footer.html');?>
